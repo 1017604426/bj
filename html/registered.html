@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/csh.css">
+    <link rel="stylesheet" href="../css/zc.css">
+    <script src="../jquery/jquery-3.4.1/jquery-3.4.1.js"></script>
+    <script src="../js/zc.js"></script>
+    <script src="../插件/jquery-validation-1.19.1/dist/jquery.validate.js"></script>
+</head>
+<body>
+<div class="all_box">
+    <div class="zc_logo clear">
+        <a href="../index.html"><img src="../images/pfp_logo.png" alt="logo"></a>
+        <h3>用户中心</h3>
+
+    </div>
+
+    <div id="zc_content">
+        <div class="content_box">
+        <div class="zc_text">
+            <p>使用手机注册</p>
+        </div>
+        <div class="zc_left lf">
+            <form action="xx.spd" method="post" id="myform">
+            <div class="number1" value="10">
+                <span>手机号码</span>
+                <input id="phones" name="phones" required minlength="11" type="text" placeholder="  &nbsp;手机号码" maxlength="11">
+                <div class="error_number" id="error_number">
+                    <em></em>
+                    <div class="wenzi">请输入正确的手机号！</div>
+                </div>
+            </div>
+            <div class="code">
+                <span>验证代码</span>
+                <input type="text" minlength="6" name="yzm" required  placeholder="  &nbsp;短信验证码" maxlength="6">
+                <button id="send" type="button" autocomplete="off" >发送验证码</button>
+                <div class="error_yzm" style="display: none">
+                    <em></em>
+                    <div class="wenzi">请先发送短信验证码</div>
+                </div>
+            </div>
+            <div class="pass">
+                <span>设置密码</span>
+                <input id="pas" name="psw" required autocomplete="new-password" minlength="6" type="password" placeholder=" &nbsp;密码长度6-20字符" maxlength="20">
+                <div class="error_password" style="display: none">
+                    <em></em>
+                    <div id="wenzi2">密码格式不正确！请重新输入！</div>
+                </div>
+            </div>
+            <div class="btn">
+                <button id="agree" type="submit" value="">同意协议并注册</button>
+            </div>
+            <div class="text">
+                《使用条款和协议》
+            </div>
+            </form>
+        </div>
+        <div class="zc_right lf">
+            <h1> 已经注册过了</h1>
+            <div class="clicks">
+                <span>请点击</span>
+                <span class="text22">直接登录</span>
+            </div>
+            <p>可使用以下账号直接登录</p>
+            <div class="lt">
+                <a class="wx lf"
+                   href="https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101261774&redirect_uri=https%3a%2f%2fwww.biyinjishi.com%2fzucenter%2ftpalogin%2fqqcallback&state=05be25be-3b4a-4ffb-a99c-1551c9ec8243"></a>
+                <a class="qq lf"
+                   href="https://open.weixin.qq.com/connect/qrconnect?appid=wx8a7b0ef60242f260&redirect_uri=https%3a%2f%2fwww.biyinjishi.com%2fzucenter%2ftpalogin%2fweixincallback&response_type=code&scope=snsapi_login&state=d7445260-bb42-4714-889c-f6b9996d7ac9"></a>
+            </div>
+        </div>
+        <div class="clear"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

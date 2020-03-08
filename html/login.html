@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆</title>
+    <link rel="stylesheet" href="../css/csh.css">
+    <link rel="stylesheet" href="../css/logincss.css">
+
+    <script src="../jquery/jquery-3.4.1/jquery-3.4.1.js" ></script>
+    <script src="../js/login.js"></script>
+</head>
+<body>
+<div class="cuntent_box">
+    <div class="top_box ">
+        <a class="lf" href="../index.html">
+            <img src="../images/pfp_logo.png" alt="">
+        </a>
+        <p class="lf">用户中心</p>
+        <div class="clear"></div>
+    </div>
+    <div class="cuntent_body clear">
+        <div class="bt_left lf">
+            <img src="../images/login_adv.png" alt="banner">
+        </div>
+        <div class="bt_right lf">
+            <form action="" id="login">
+                <ul>
+                    <li id="login_text">
+                        <span>登陆</span>
+                        <a href="">短信验证登陆</a>
+                        <b id="icon_sj"></b>
+                        <!--使用伪类添加-->
+                    </li>
+                    <li id="yhm">
+                        <span id="yhm_icon" class="lf"></span>
+                        <input class="ip_number rf" maxlength="11" autocomplete="off" type="text" placeholder="手机号码"
+                               value="" name="iphone">
+                    </li>
+                    <li id="pws">
+                        <span class="lf pws_icon"></span>
+                        <input class="rf ma_text" type="password"autocomplete="new-password" placeholder="登陆密码" name="psw_num">
+                    </li>
+                    <li id="pws_btn">
+                        <a href="javascript:void(0)">立即登录</a>
+                    </li>
+                    <li id="forget">
+                        <input type="checkbox" checked="checked" ;>
+                        <span>记住密码</span>
+                    </li>
+                    <li id="zc_btn">
+                        <a class="zc1" href="">注册新用户 ></a>
+                        <a class="wj1" href="">忘记密码</a>
+                    </li>
+                    <li id="choose">
+                        <div class="zx1 lf"></div>
+                        <div class="text1 lf">可用以下账号快速登陆</div>
+                        <div class="zx2 rf"></div>
+                    </li>
+                    <li id="icons">
+                        <a href="javascript:void(0)" class="qq"></a>
+                        <a href="javascript:void(0)" class="wechat"></a>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div class="bt_right2 lf">
+            <form action="" id="login2">
+                <ul>
+                    <li id="login2_text">
+                        <span>登陆</span>
+                        <a href="">账号验证码登陆</a>
+                        <b id="icon2_sj"></b>
+                        <!--使用伪类添加-->
+                    </li>
+                    <li id="yhm2">
+                        <span id="yhm2_icon" class="lf"></span>
+                        <input class="ip_number rf" maxlength="11" autocomplete="off" type="text" placeholder="手机号码"
+                               value="" name="iphone">
+                    </li>
+                    <li id="pws2">
+                        <span class="lf pws_icon"></span>
+                        <input class="rf ma_text" type="text" placeholder="短信验证码" name="psw_num">
+                        <a id="send_yzm" href="javascript(:void)">发送验证码</a>
+                    </li>
+                    <li id="pws2_btn">
+                        <a href="javascript:void(0)">立即登录</a>
+                    </li>
+
+                    <li id="zc2_btn">
+                        <a class="zc2" href="">注册新用户 ></a>
+                        <a class="wj2" href="">忘记密码</a>
+                    </li>
+                    <li id="choose2">
+                        <div class="zx2 lf"></div>
+                        <div class="text2 lf">可用以下账号快速登陆</div>
+                        <div class="zx3 rf"></div>
+                    </li>
+                    <li id="icons2">
+                        <a href="javascript:void(0)" class="qq2"></a>
+                        <a href="javascript:void(0)" class="wechat2"></a>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

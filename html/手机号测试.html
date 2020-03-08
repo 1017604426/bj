@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+请输入手机号码：<input type="text">
+<button value="button">验证</button>
+</body>
+<script>
+    //这里默认页面加载时验证输入数据
+    $(function () {
+        $("button").click(function () {
+            var value = $("input").val();
+            if (validatorTel(value)) {
+                console.log("参数:符合验证要求");
+            } else {
+                console.log("参数: 不符合验证要求");
+            }
+        })
+
+    })
+
+    /*
+     * 验证手机号码
+     */
+    function validatorTel(content) {
+        // 正则验证格式
+        eval("var reg = /^1[34578]\\d{9}$/;");
+        return RegExp(reg).test(content);
+    }
+</script>
+</html>

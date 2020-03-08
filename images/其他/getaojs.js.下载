@@ -1,0 +1,2190 @@
+﻿/*Getao.js v0.0.1|2015|BeiJingYinTeSoft*/
+
+/*AnalyticsType-分析类型*/
+var GETAO_AT_USER_INBOUND = "GETAO_AT_USER_INBOUND";//入站
+var GETAO_AT_USER_OUTBOUND = "GETAO_AT_USER_OUTBOUND";//出战
+var GETAO_AT_USER_CLICK = "GETAO_AT_USER_CLICK";//单机记录
+
+/*LightMsgType-轻提示类型*/
+var GETAO_LMT_SUCCESS = "GETAO_LMT_SUCCESS";//成功显示为绿色
+var GETAO_LMT_ERROR = "GETAO_LMT_ERROR";//错误显示红色
+var GETAO_LMT_WARNING = "GETAO_LMT_WARNING";//警告显示橙色
+
+/*异步请求时执行的操作类型*/
+var GETAO_OPERATOR_INSERT = "GETAO_OPERATOR_INSERT";    //新增操作
+var GETAO_OPERATOR_DELETE = "GETAO_OPERATOR_DELETE";    //删除操作
+var GETAO_OPERATOR_SELECT = "GETAO_OPERATOR_SELECT";    //查询操作
+var GETAO_OPERATOR_UPDATE = "GETAO_OPERATOR_UPDATE";    //修改操作
+var GETAO_OPERATOR_SAVE = "GETAO_OPERATOR_SAVE";        //保存操作
+var GETAO_OPERATOR_SUBMIT = "GETAO_OPERATOR_SUBMIT";    //提交操作
+var GETAO_OPERATOR_EXAM = "GETAO_OPERATOR_EXAM";        //审核操作
+
+/*------------------基础---------------------*/
+var GETAO = window.NameSpace || {};
+var GETAO = {
+    Version: 'v0.0.1',
+    Parameter: {
+        analyticsURL: "/Handlers/BYWHandlers/BehaviorAnalytics.ashx",/*分析地址*/
+        StrAZ09: "ABCDEFGHIJKLMNOPQRSTUVWSYZ0123456789"
+    },
+    Cookie: {
+        SetCookie: function (_name, _value, _exdays, _path, _domian) {
+            /*
+                【修改一个Cookie】
+                _name:cookie名称，
+                _value:cookie的值，
+                _exdays:有效期（天数）,
+                _path:路径
+                _domain:域
+            */
+            try {
+
+                var time = new Date();
+                time.setTime(time.getTime() + (_exdays * 24 * 60 * 60 * 1000));
+                var expires = "expires=" + time.toUTCString();
+                var path = "";
+                if (!GETAO.IsNullOrEmptyOrUndefined(_path))
+                    path = "path=" + _path + ";";
+
+                var domain = "";
+                if (!GETAO.IsNullOrEmptyOrUndefined(_domian))
+                    domain = "domain=" + _domian + ";";
+
+                //if (!GETAO.Cookie.GetCookie(_name))
+                //{ 
+                //    document.cookie = _name + "=" + _value + "; " + path + domain + expires;
+                //}
+                document.cookie = _name + "=" + _value + "; " + path + domain + expires;
+            } catch (e) {
+                alert(e.message);
+                return;
+            }
+        },
+        GetCookie: function (_name) {
+            var arrstr = document.cookie.split("; ");
+
+            if (arrstr) {
+                for (var i = 0; i < arrstr.length; i++) {
+                    var temp = arrstr[i].split("=");
+                    if (temp[0] == _name) {
+                        return temp[1];
+                    }
+                }
+            }
+            return null;
+        },
+        DeleteCookie: function (_name, _exdays, _path, _domian) {
+            var time = new Date();
+            time.setTime(time.getTime() + (_exdays * 24 * 60 * 60 * 1000));
+
+            var expires = "expires=" + time.toUTCString();
+            var path = "";
+            if (!GETAO.IsNullOrEmptyOrUndefined(_path))
+                path = "path=" + _path + ";";
+
+            var domain = "";
+            if (!GETAO.IsNullOrEmptyOrUndefined(_domian))
+                domain = "domain=" + _domian + ";";
+
+            var cval = GETAO.Cookie.GetCookie(_name);
+            if (cval) {
+                document.cookie = _name + "=" + cval + "; " + path + domain + expires;
+            }
+        },
+        InsertCookie: function (_name, _value, _exdays, _path, _domain) {
+            /*
+                【新增一个Cookie，存在相同的，则替换。】
+                _name:cookie名称，
+                _value:cookie的值，
+                _exdays:有效期（天数）,
+                _path:路径
+                _domain:域
+            */
+            try {
+                if (GETAO.IsNullOrEmptyOrUndefined(_name))
+                    return;
+                if (GETAO.IsNullOrEmptyOrUndefined(_exdays))
+                    return;
+                if (GETAO.IsNullOrUndefined(_exdays))
+                    _exdays = 7;
+
+                //var cookie = GETAO.Cookie.GetCookie(_name);
+                //if (cookie) {
+                //    //GETAO.Cookie.DeleteCookie(_name);
+                //}
+                GETAO.Cookie.SetCookie(_name, _value, _exdays, _path, _domain);
+            } catch (e) {
+
+            }
+        }
+    },
+    IsIPad: function () {
+        try {
+            return navigator.userAgent.indexOf('iPad') > -1;
+        } catch (e) {
+            return false;
+        }
+    },
+    IsIPhone: function () {
+        try {
+            return !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+        } catch (e) {
+            return false;
+        }
+    },
+    IsAndroidPad: function (_ismobile) {
+        try {
+
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
+
+            if (!_ismobile && isAndroid) {
+                return true
+            } else {
+                return false;
+            }
+
+        } catch (e) {
+            return false;
+        }
+    },
+    IsAndroidMobile: function (_ismobile) {
+        try {
+
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
+
+            if (_ismobile && isAndroid) {
+                return true
+            } else {
+                return false;
+            }
+
+        } catch (e) {
+            return false;
+        }
+    },
+    IsWeiXin: function () {
+        try {
+            var ua = window.navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (e) {
+            return false;
+        }
+    },
+    IsMobile: function () {
+        /*
+        *判断是否是手机设备访问
+        *是ipad iphone androidpad androidmobile wenxin的情况下为手机设备访问
+        */
+        if (GETAO.IsIPad || GETAO.IsIPhone || GETAO.IsAndroidPad || GETAO.IsAndroidMobile || GETAO.IsWeiXin) {
+            return true;
+        } else {
+            return true;
+        }
+    },
+    IsIE: function () {/*判断当前浏览器是否是IE*/
+        try {
+            if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0))
+                return true;
+            else
+                return false;
+
+        } catch (e) {
+            return false;
+        }
+    },
+    GetAdobeFlashVersion: function () {
+        /*获取用户Falsh版本，仅限IE可以正常获取*/
+        try {
+            var flash = new ActiveXObject("ShockwaveFlash.ShockwaveFlash");
+            if (flash) {
+                return parseInt(flash.GetVariable("$version").split(" ")[1].split(",")[0]);
+            }
+            else {
+                return 0;
+            }
+        } catch (e) {
+            return 0;
+        }
+    },
+    GetIEVersion: function () {
+        try {
+            if (GETAO.IsIE) {
+                var isIe = function (v) {
+                    if (v == 9 || v == 10) {
+                        if (navigator.userAgent.indexOf("MSIE " + v + ".0") > 0)
+                            return true;
+                        else
+                            return false;
+                    }
+                    else {
+                        var b = document.createElement('b');
+                        b.innerHTML = '<!--[if IE ' + v + ' ]><i></i><![endif]-->'
+                        return b.getElementsByTagName('i').length == 1;
+                    }
+                }
+                var ie = {
+                    ie6: isIe(6),
+                    ie7: isIe(7),
+                    ie8: isIe(8),
+                    ie9: isIe(9),
+                    ie10: isIe(10)
+                }
+
+                if (ie.ie6)
+                    return 6;
+
+                if (ie.ie7)
+                    return 7;
+
+                if (ie.ie8)
+                    return 8;
+
+                if (ie.ie9)
+                    return 9;
+
+                if (ie.ie10)
+                    return 10;
+
+                return 99;
+            }
+            else {
+                return 99;
+            }
+        } catch (e) {
+            return -1;
+        }
+    },
+    CreateValidateCode: function () {
+        /*创建验证码*/
+        try {
+            var validateCode = "";
+            for (var i = 0; i < 6; i++) {
+                validateCode += GETAO.Parameter.StrAZ09.substr(Math.floor(Math.random() * 35), 1);
+            }
+            return validateCode;
+        } catch (e) {
+            return "";
+        }
+
+    },
+    IsLAOWANG: function (_value) {
+        return GETAO.IsNullOrEmptyOrUndefined(_value);
+    },
+    IsNullOrEmptyOrUndefined: function (_value) {/*判断值是否为Null或为Empty或为Undeined,是则返回True*/
+        if (GETAO.IsNullOrUndefined(_value) || _value.length == 0)
+            return true;
+        return false;
+    },
+    IsNullOrUndefined: function (_value) {/*判断值是否为Null或为Undeined*/
+        if (_value == null || _value == undefined)
+            return true;
+        return false;
+    },
+    IsNullOrEmpty: function (_value) {/*判断值是否为Null或为Empty*/
+        if (_value == null || _value.length == 0)
+            return true;
+        return false;
+    },
+    IsHasSpace: function (_value) {/*判断传入的字符串中是否包含空格*/
+        try {
+            if (_value.indexOf(' ') >= 0 || _value.indexOf('　') >= 0)
+                return true;
+            return false;
+        } catch (e) {
+            return true;
+        }
+    },
+    IsNumber: function (_value) {/*判断一个值是否是数字*/
+        return (!GETAO.IsNullOrUndefined(_value) && typeof _value == 'number' && (_value.constructor == Number));
+    },
+
+    IsPositiveNum:function(_value){
+        /*判断是否是一个正整数*/
+        var re = /^[0-9]*[1-9][0-9]*$/;
+        return re.test(_value);
+    },
+
+    IsFloat: function (_value) {
+        /*判断一个值是否是两位小数*/
+        try {
+            if (/^\d+(\.\d{1,2})?$/.test(_value))
+                return true;
+            else
+                return false;
+        } catch (e) {
+            return false;
+        }
+    },
+    IsNotBetween: function (_value, _minLength, _maxLength) {
+        /*
+            验证一个值的长度，是否不在规定的长度中。（传入的value,会去除首尾空格）
+            不在规定长度内，返回true。异常也返回true.
+        */
+
+        try {
+            _value = GETAO.TrimBySide(_value);
+            if (_value.length > _maxLength || _value.length < _minLength)
+                return true;
+            return false;
+        } catch (e) {
+            return true;
+        }
+    },
+    IsEmail: function (_value) {/*判断是否是Email*/
+        _value = GETAO.TrimBySide(_value);
+        if (GETAO.IsNullOrEmptyOrUndefined(_value))
+            return false;
+
+        if (/([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$/.test(_value)) {
+            return true;
+        }
+
+        return false;
+    },
+    IsMobileNumber: function (_value) {
+        //目前验证13，15，17，18开头手机号
+        _value = GETAO.TrimBySide(_value);
+        if (GETAO.IsNullOrEmptyOrUndefined(_value))
+            return false;
+
+        if (_value.length > 11) {
+            return false;
+        }
+
+        if (/^[1][3578]\d{9}$/.test(_value)) {
+            return true;
+        }
+        return false;
+    },
+    IsTelNumber: function (_value) {
+        /*座机号码验证*/
+        _value = GETAO.TrimBySide(_value);
+        if (GETAO.IsNullOrEmptyOrUndefined(_value))
+            return false;
+
+        if (/^([0-9]{3,4}-)?[0-9]{7,8}$/.test(_value)) {
+            return true;
+        }
+
+        return false;
+    },
+    IsUrl: function (_value) {
+        /*验证是否是个Url链接*/
+        _value = GETAO.TrimBySide(_value);
+        if (GETAO.IsNullOrEmptyOrUndefined(_value))
+            return false;
+
+        if (/(http\:\/\/)?[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/.test(_value) || /(https\:\/\/)?[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/.test(_value)) {
+            return true;
+        }
+        return false;
+    },
+    IsZipCode: function (_value) {
+        /*验证是否是合法的邮编*/
+        _value = GETAO.TrimBySide(_value);
+        if (GETAO.IsNullOrEmptyOrUndefined(_value))
+            return false;
+
+        if (/^[0-9]{6}$/.test(_value)) {
+            return true;
+        }
+
+        return false;
+    },
+    IsMobile: function () {
+        /*判断当前设备是否是手机设备*/
+        try {
+            if (/AppleWebKit.*Mobile/.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOV|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))) {
+                return true;
+            }
+            return false;
+        } catch (e) {
+            return false;
+        }
+    },
+    NumberToFixed2: function (_value) {
+        try {
+            if (GETAO.IsNumber(_value)) {
+                return _value.toFixed(2);
+            }
+
+            return "0.00";
+        } catch (e) {
+            return "0.00";
+        }
+    },
+    NewGuid: function () {
+        //36位Guid
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    },
+    TrimBySide: function (_value) {/*去除一个字符串两边的空格*/
+        if (GETAO.IsNullOrEmptyOrUndefined(_value))
+            return "";
+        return $.trim(_value);
+    },
+    Equals: function (_v1, _v2) {
+        /*判断两个字符串是否相同*/
+        if (_v1 == _v2)
+            return true;
+
+        return false;
+    },
+    ShowHoverMsg: function (_element, _msg) {
+        /*
+            该方法可以自动绑定一个文本框。在其下方显示一个异常提示框。且会自动滚动到消息弹出区。
+        */
+        GETAO.Private.BasicsHoverMsg(_element, _msg, true);
+    },
+    ShowHoverMsgNotGOTO: function (_element, _msg) {
+        /*
+            该方法可以自动绑定一个文本框，在其下方显示一个异常提示框
+            _isGoToElement:是否自动定位到消息弹出区。
+        */
+        GETAO.Private.BasicsHoverMsg(_element, _msg, false);
+    },
+    ShowHoverMsgAutoWidth: function (_element, _msg) {
+        /*
+            该方法可以自动绑定一个文本框，在其下方显示一个异常提示框（自动宽度）
+            _isGoToElement:是否自动定位到消息弹出区。
+        */
+        GETAO.Private.BasicsHoverMsgAutoWidth(_element, _msg, false);
+    },
+    ShowLightMsg: function (_elementId, _msg, _lightMsgType) {
+        /*
+            该方法可以显示一个指定轻提示框，
+            _elementId:指定一个元素的ID。
+            _msg:显示的轻提示的内容。
+            _lightMsgType:轻消息类型，消息类型-【GETAO_LMT_SUCCESS、GETAO_LMT_ERROR、GETAO_LMT_WARNING】。。
+        */
+        try {
+            if (GETAO.IsNullOrEmptyOrUndefined(_elementId))
+                return;
+            if (GETAO.IsNullOrEmptyOrUndefined(_msg))
+                return;
+            if (GETAO.IsNullOrEmptyOrUndefined(_lightMsgType))
+                return;
+
+            GETAO.Private.BasicsLightMsg(_elementId, _msg, _lightMsgType, 0, 0, 2, true);
+        } catch (e) {
+            return;
+        }
+    },
+    ShowLightMsgAdv: function (_elementId, _msg, _lightMsgType, _topOffset, _time, _enableAutoHide) {
+        /*
+            该方法可以显示一个指定的轻提示框，且支持高级参数。
+            _elementId:元素Id。
+            _msg:文本消息。
+            _lightMsgType:消息类型-【GETAO_LMT_SUCCESS、GETAO_LMT_ERROR、GETAO_LMT_WARNING】。
+            _topOffset:顶部偏移值，负数为向上偏移。
+            _time:存在时间。默认为2秒。2秒后自动隐藏提示。该值必须大于0。
+            _enableAutoHide:是否启用自动关闭。如果设置为false，则_time的设置无效。默认为true。
+        */
+        try {
+            GETAO.Private.BasicsLightMsg(_elementId, _msg, _lightMsgType, _topOffset, 0, _time, _enableAutoHide);
+        } catch (e) {
+            return;
+        }
+    },
+    ShowLightMsgAdv2: function (_elementId, _msg, _lightMsgType, _topOffset, _leftOffset, _time, _enableAutoHide) {
+        /*
+            该方法可以显示一个指定的轻提示框，且支持高级参数。
+            _elementId:元素Id。
+            _msg:文本消息。
+            _lightMsgType:消息类型-【GETAO_LMT_SUCCESS、GETAO_LMT_ERROR、GETAO_LMT_WARNING】。
+            _topOffset:顶部偏移值，负数为向上偏移。
+            _leftOffset:左侧偏移值，负数为向左偏移。
+            _time:存在时间。默认为2秒。2秒后自动隐藏提示。该值必须大于0。
+            _enableAutoHide:是否启用自动关闭。如果设置为false，则_time的设置无效。默认为true。
+        */
+        try {
+            GETAO.Private.BasicsLightMsg(_elementId, _msg, _lightMsgType, _topOffset, _leftOffset, _time, _enableAutoHide);
+        } catch (e) {
+            return;
+        }
+    },
+    HideLighMsg: function (_elementId) {
+        /*
+            【隐藏一个轻提示框】
+            _elementId:提示框元素Id
+        */
+        try {
+
+            if (GETAO.IsNullOrEmptyOrUndefined(_elementId))
+                return;
+
+            $("#" + _elementId).fadeOut(800);
+        } catch (e) {
+            return;
+        }
+    },
+    ShowCenter: function (wrapid) {
+        /*控制某个窗口容器居中显示*/
+        GETAO.ShowUtil.Center(wrapid);
+    },
+    ShowCenterByClassNameOrId: function (wrapid) {
+        /*控制某个窗口容器居中显示【比印网站没有调用过 暂不转移到ShowUtil中】*/
+        var wrap = _wrap;
+        var scrollTop = $(window).scrollTop();//滚动条顶部偏移
+        var winH = $(window).height();//窗口高
+        var winW = $(window).width();//窗口宽
+        var wrapH = wrap.height();//弹窗高
+        var wrapW = wrap.width();//弹窗宽
+        var wrapT = (winH - wrapH) / 2 + scrollTop;
+        var wrapL = (winW - wrapW) / 2;
+        wrap.css({ top: wrapT + "px", left: wrapL + "px" });
+        $(window).scroll(function () {
+            var wrapScrollT = wrapT + ($(window).scrollTop() - scrollTop);
+
+            wrap.css({ top: wrapScrollT + "px", left: ($(window).width() - wrap.width()) / 2 + "px" });
+        });
+    },
+    BindOnbeforeunload: function (msg) {
+
+        /*设置当离开当前页面时，弹出是否确定离开当面页面提示框，提示信息为传入的msg，火狐浏览器下无法改变弹出的提示信息*/
+        window.onbeforeunload = function () {
+            return msg;
+        }
+    },
+    UnbindOnbeforeunload: function () {
+
+        /*取消设置当离开当前页面时，弹出是否确定离开当面页面提示框*/
+        window.onbeforeunload = '';
+    },
+    ShowSurplusNum: function (_txtId, _lblMsgId, _maxLength) {
+        /*
+            文本框可输入汉字数量提示
+            _txt：输入内容的文本框的ID
+            _lblMsg:提示信息
+            _maxLength:文本框最多可输入字符数量
+        */
+        if (GETAO.IsNullOrEmptyOrUndefined(_txtId))
+            return;
+        if (GETAO.IsNullOrEmptyOrUndefined(_lblMsgId))
+            return;
+        if (GETAO.IsNullOrEmptyOrUndefined(_maxLength))
+            return;
+        if (!GETAO.IsNumber(_maxLength))
+            _maxLength = 0;
+
+        if (_maxLength <= 0) {
+            $('#' + _txtId).attr("disabled", "disabled");
+        }
+
+        $('#' + _txtId).attr("maxlength", _maxLength);
+
+        $('#' + _lblMsgId).text(_maxLength - $('#' + _txtId).val().length + "/" + _maxLength);
+        $('#' + _txtId).keyup(function () {
+            if ($('#' + _txtId).val().length > _maxLength) {
+                $('#' + _txtId).val($('#' + _txtId).val().substr(0, _maxLength));
+            }
+            $('#' + _lblMsgId).text(_maxLength - $('#' + _txtId).val().length + "/" + _maxLength);
+        });
+
+    },
+    ShowCenterOffset: function (wrapid, offset) {
+        /*
+            【控制某个窗口容器居中显示】
+             offset标示偏移量，设置为负数，将会向顶部偏移。
+        */
+        GETAO.ShowUtil.Offset.Top(wrapid, offset);
+
+    },
+    /*日期操作类*/
+    DateUtil: {
+        CSharpDateRemoveT: function (time) {
+            return time.replace("T", " ");
+        }
+    },
+
+    /*居中显示类*/
+    ShowUtil: {
+        /*纯居中显示*/
+        Center: function (wrapid) {
+            try {
+                /*控制某个窗口容器居中显示*/
+                var wrap = $("#" + wrapid);
+                var scrollTop = $(window).scrollTop();//滚动条顶部偏移
+                var winH = $(window).height();//窗口高
+                var winW = $(window).width();//窗口宽
+                var wrapH = wrap.height();//弹窗高
+                var wrapW = wrap.width();//弹窗宽
+                var wrapT = (winH - wrapH) / 2 + scrollTop;
+                var wrapL = (winW - wrapW) / 2;
+                wrap.css({ top: wrapT + "px", left: wrapL + "px" });
+                $(window).scroll(function () {
+                    var wrapScrollT = wrapT + ($(window).scrollTop() - scrollTop);
+
+                    wrap.css({ top: wrapScrollT + "px", left: ($(window).width() - wrap.width()) / 2 + "px" });
+                });
+            } catch (e) {
+
+            }
+        },
+
+        /*居中偏移显示*/
+        Offset: {
+
+            /*向顶部偏移*/
+            Top: function (wrapid, offset) {
+                try {
+
+                    var wrap = $("#" + wrapid);
+                    var scrollTop = $(window).scrollTop();//滚动条顶部偏移
+                    var winH = $(window).height();//窗口高
+                    var winW = $(window).width();//窗口宽
+                    var wrapH = wrap.height();//弹窗高
+                    var wrapW = wrap.width();//弹窗宽
+                    var wrapT = (winH - wrapH) / 2 + scrollTop;
+                    var wrapL = (winW - wrapW) / 2;
+
+                    //添加手动高度。
+                    wrapT += offset;
+
+                    wrap.css({ top: wrapT + "px", left: wrapL + "px" });
+
+                    var scrollFunction = function (e) {
+                        var wrapScrollT = wrapT + ($(window).scrollTop() - scrollTop);
+                        wrap.css({ top: wrapScrollT + "px", left: wrapL + "px" });
+                    }
+
+                    //FireFox
+                    if (document.addEventListener) {
+                        document.addEventListener("DOMMouseScroll", scrollFunction, false);
+                    }
+                    //IE、Opera、Chrome
+                    window.onscroll = document.onscroll = scrollFunction;
+
+                } catch (e) {
+
+                }
+            },
+
+            /*向左偏移*/
+            Left: function (wrapid, offset4Lef) {
+                /*
+                   【控制某个窗口容器居中显示】
+                    offset标示偏移量，设置为负数，将会向左侧偏移。
+               */
+                try {
+
+                    var wrap = $("#" + wrapid);
+                    var scrollTop = $(window).scrollTop();//滚动条顶部偏移
+                    var winH = $(window).height();//窗口高
+                    var winW = $(window).width();//窗口宽
+                    var wrapH = wrap.height();//弹窗高
+                    var wrapW = wrap.width();//弹窗宽
+                    var wrapT = (winH - wrapH) / 2 + scrollTop;
+                    var wrapL = (winW - wrapW) / 2;
+
+                    //添加手动宽度。
+                    wrapL += offset4Lef;
+
+                    wrap.css({ top: wrapT + "px", left: wrapL + "px" });
+
+                    var scrollFunction = function (e) {
+                        var wrapScrollT = wrapT + ($(window).scrollTop() - scrollTop);
+                        wrap.css({ top: wrapScrollT + "px", left: wrapL + "px" });
+                    }
+
+                    //FireFox
+                    if (document.addEventListener) {
+                        document.addEventListener("DOMMouseScroll", scrollFunction, false);
+                    }
+                    //IE、Opera、Chrome
+                    window.onscroll = document.onscroll = scrollFunction;
+
+                } catch (e) {
+
+                }
+            },
+
+            /*向顶部和左侧偏移*/
+            TopAndLeft: function (wrapid, offset4Top, offset4Left) {
+                /*
+                  【控制某个窗口容器居中显示】
+                   offset4Top标示偏移量，设置为负数，将会向上偏移。
+                   offset4Left标示偏移量，设置为负数，将会向左侧偏移。
+              */
+                try {
+
+                    var wrap = $("#" + wrapid);
+                    var scrollTop = $(window).scrollTop();//滚动条顶部偏移
+                    var winH = $(window).height();//窗口高
+                    var winW = $(window).width();//窗口宽
+                    var wrapH = wrap.height();//弹窗高
+                    var wrapW = wrap.width();//弹窗宽
+                    var wrapT = (winH - wrapH) / 2 + scrollTop;
+                    var wrapL = (winW - wrapW) / 2;
+
+                    //动态偏移
+                    wrapT += offset4Top;
+                    wrapL += offset4Left;
+
+                    wrap.css({ top: wrapT + "px", left: wrapL + "px" });
+
+                    var scrollFunction = function (e) {
+                        var wrapScrollT = wrapT + ($(window).scrollTop() - scrollTop);
+                        wrap.css({ top: wrapScrollT + "px", left: wrapL + "px" });
+                    }
+
+                    //FireFox
+                    if (document.addEventListener) {
+                        document.addEventListener("DOMMouseScroll", scrollFunction, false);
+                    }
+                    //IE、Opera、Chrome
+                    window.onscroll = document.onscroll = scrollFunction;
+
+                } catch (e) {
+
+                }
+            }
+        }
+    },
+    ShowCenterOffset4Left: function (wrapid, offset4Lef) {
+        /*
+           【控制某个窗口容器居中显示】
+            offset标示偏移量，设置为负数，将会向左侧偏移。
+       */
+        try {
+            GETAO.ShowUtil.Offset.Left(wrapid, offset4Lef);
+        } catch (e) {
+
+        }
+    },
+    ShowCenterOffset4TopAndLeft: function (wrapid, offset4Top, offset4Left) {
+        /*
+          【控制某个窗口容器居中显示】
+           offset4Top标示偏移量，设置为负数，将会向上偏移。
+           offset4Left标示偏移量，设置为负数，将会向左侧偏移。
+      */
+        try {
+            GETAO.ShowUtil.Offset.TopAndLeft(wrapid, offset4Top, offset4Left);
+        } catch (e) {
+
+        }
+    },
+    GetShortTimeString: function (_day) {
+        try {
+            /*
+                获取短日期时间，例如：2015-08-18
+                _day:减少或增加日期数字
+            */
+            var now = new Date();
+            var year = now.getFullYear();
+            now.setDate(now.getDate() + (lateday))
+            var month = now.getMonth() + 1;
+            var day = now.getDate();
+
+            var hh = now.getHours();
+            var mm = now.getMinutes();
+            var ss = now.getSeconds();
+
+            var clock = year + "-";
+
+            if (month < 10)
+                clock += "0";
+            clock += month + "-";
+
+            if (day < 10)
+                clock += "0";
+            clock += day;
+            return (clock);
+        } catch (e) {
+
+        }
+    },
+    GetLongTimeString: function () {
+        try {
+            /*
+                获取长日期类型，格式： yyyy-MM-dd HH:mm:ss
+                如果异常返回""
+            */
+
+            var date = new Date();
+
+            var seperator1 = "-";
+            var seperator2 = ":";
+
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            var strMin = date.getMinutes();
+            var strSec = date.getSeconds();
+
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+
+            if (strMin >= 0 && strMin <= 9) {
+                strMin = "0" + strMin;
+            }
+
+            if (strSec >= 0 && strSec <= 9) {
+                strSec = "0" + strSec;
+            }
+
+            var currdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + strMin + seperator2 + strSec;
+
+            return currdate;
+        } catch (e) {
+            return "";
+        }
+    },
+    ValidateInvitaion: function (_value) {
+        /*
+            邀请码比对方法，如果输入的邀请码正确返回true,如果邀请码错误返回false
+        */
+        try {
+            var invitaionCode = "";
+            var curDate = new Date();
+
+            var month = curDate.getMonth() + 1;
+            if (month < 10) {
+                invitaionCode += "0";
+                invitaionCode += month;
+            }
+            else {
+                invitaionCode += month;
+            }
+            //2-4
+            var next = (month * 180) + curDate.getDate();
+            next = next.toString();
+            next = next.substring(next.length - 2);
+            invitaionCode += next;
+
+            //4-6
+            invitaionCode += Math.ceil(Math.random() * 9);
+            invitaionCode += Math.ceil(Math.random() * 9);
+
+            if (_value.substring(0, 4) != invitaionCode.substring(0, 4)) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (e) {
+            return false;
+        }
+
+
+
+    },
+    ImgeLoadError: function (element) {
+        /*---------------------imageloaderror激发---------------------*/
+        /*
+        作者：郝春阳
+        日期：2015-9-21
+        .getao_imageloaderror，图片加载失败绑定默认图片事件。调用当前元素中存储的data-flag来找到指定加载次数，默认为0.为1时，不再运行此事件。
+                data-flag，代表指定加载次数
+                data-errorurl,代表加载失败时，需要默认绑定图片的URL地址
+        */
+
+        try {
+            if ($(element).attr("data-flag") == "0") {
+                $(element).attr("src", $(element).attr('data-errorurl'));
+                $(element).attr('data-flag', '1');
+            }
+        } catch (e) {
+
+        }
+    },
+    Analytics: {/*内部分析接口*/
+        GetVID: function () {/*预留方法*/
+            return GETAO.Cookie.GetCookie("YINTEVID");
+        },
+        CreateAnalytics: function (_AnalyticsType, par) {
+            /*创建分析
+                  _AnalyticsType:分析类型，
+                  _par:参数列表      
+            */
+            if (_AnalyticsType == GETAO_AT_USER_INBOUND) {/*新增入站*/
+                var data = { referrer: escape(document.referrer) };
+                GETAO.Analytics.AJAX(GETAO.Parameter.analyticsURL + "?action=inbound", "POST", data);
+            }
+            else if (_AnalyticsType == GETAO_AT_USER_OUTBOUND) {/*新增出站*/
+                GETAO.Analytics.AJAX(GETAO.Parameter.analyticsURL + "?action=outbound", "POST", null);
+            }
+            else if (_AnalyticsType == GETAO_AT_USER_CLICK) {/*用户点击*/
+                GETAO.Analytics.AJAX(GETAO.Parameter.analyticsURL + "?action=click", "POST", par);
+            }
+        },
+        AJAX: function (_url, _metodtype, _data) {/*Ajax*/
+            $.ajax({
+                type: _metodtype,
+                data: _data,
+                url: _url
+            });
+        }
+    },
+    AjaxStartSend: function (_operatorType) {
+        try {
+            /*
+                【异步请求 在请求发起时执行（显示遮罩层 和 提示文字）】
+                _operatorType：当前执行的操作名称
+            */
+            GETAO.Private.Private_Ajax_StartSend(_operatorType);
+        } catch (e) {
+            return;
+        }
+    },
+    AjaxEndSend: function () {
+        try {
+            /*
+                【异步请求 在AjaxStartSend执行完毕之后 隐藏遮罩层】
+            */
+            GETAO.Private.Private_Ajax_EndSend();
+        } catch (e) {
+            return;
+        }
+    },
+    /*私有方法集合【经供内部调用】*/
+    Private: {
+        /*记录轻提示框。*/
+        Private_LightMsg_SetTimeout: null,
+
+        /*
+            【轻提示基础方法，供外围Getao调用】
+            _elementId:元素Id。
+            _msg:文本消息。
+            _lightMsgType:消息类型-【GETAO_LMT_SUCCESS、GETAO_LMT_ERROR、GETAO_LMT_WARNING】。
+            _topOffset:顶部偏移值，负数为向上偏移。
+            _leftOffset:左侧偏移值，负数为向左偏移。
+            _time:存在时间。默认为2秒。2秒后自动隐藏提示。该值必须大于0。
+            _enableAutoHide:是否启用自动关闭。如果设置为false，则_time的设置无效。默认为true。
+        */
+        BasicsLightMsg: function (_elementId, _msg, _lightMsgType, _topOffset, _leftOffset, _time, _enableAutoHide) {
+            try {
+
+                if (GETAO.IsNullOrEmptyOrUndefined(_elementId))
+                    return;
+                if (GETAO.IsNullOrEmptyOrUndefined(_msg))
+                    return;
+                if (GETAO.IsNullOrEmptyOrUndefined(_lightMsgType))
+                    return;
+                if (!GETAO.IsNumber(_topOffset))
+                    _topOffset = 0;
+                if (!GETAO.IsNumber(_leftOffset))
+                    _leftOffset = 0;
+                if (!GETAO.IsNumber(_time) || _time <= 0)
+                    _time = 2;
+                if (GETAO.IsNullOrUndefined(_enableAutoHide))
+                    _enableAutoHide = true;
+
+                if (_lightMsgType == "GETAO_LMT_SUCCESS")
+                    $("#" + _elementId).css("backgroundColor", "#33cc00");
+                if (_lightMsgType == "GETAO_LMT_ERROR")
+                    $("#" + _elementId).css("backgroundColor", "#ff6666");
+                if (_lightMsgType == "GETAO_LMT_WARNING")
+                    $("#" + _elementId).css("backgroundColor", "#ff9900");
+
+                if (GETAO.Private.Private_LightMsg_SetTimeout) {
+                    clearTimeout(GETAO.Private.Private_LightMsg_SetTimeout);
+                }
+
+                $("#" + _elementId).html(_msg);
+                $("#" + _elementId).show();
+
+                GETAO.ShowCenterOffset4TopAndLeft(_elementId, _topOffset, _leftOffset);
+
+                if (_enableAutoHide) {
+                    if (_lightMsgType == "GETAO_LMT_SUCCESS") {
+                        GETAO.Private.Private_LightMsg_SetTimeout = setTimeout(function () { $("#" + _elementId).fadeOut(500); }, 1 * 1000);
+                    }
+                    else {
+                        GETAO.Private.Private_LightMsg_SetTimeout = setTimeout(function () { $("#" + _elementId).fadeOut(500); }, _time * 1000);
+                    }
+
+                }
+            } catch (e) {
+                return;
+            }
+        },
+        /*
+            【悬浮提示框，供外围Getao调用】
+            _element:元素。
+            _msg:文本消息。
+            _isGoToElement:是否自动定位到消息弹出区。
+        */
+        BasicsHoverMsg: function (_element, _msg, _isGoToElement) {
+            try {
+                if (GETAO.IsNullOrEmptyOrUndefined(_msg) || _element == undefined)
+                    return;
+
+                var errorDiv = document.createElement("div");
+                errorDiv.innerHTML = "<em></em><div class='wenzi'>" + _msg + "</div>";
+                errorDiv.setAttribute("class", "error_tip");
+                errorDiv.style.top = $(_element).parent()[0].offsetHeight + "px";
+
+                //追加内容
+                if ($(_element).parent().find(".error_tip") == null || $(_element).parent().find(".error_tip").length == 0) {
+                    $(_element).parent().append(errorDiv);
+
+                    $(_element).focus(function () {
+                        $(this).parent().find(".error_tip").remove();
+                    });
+
+                    $(_element).click(function () {
+                        $(this).parent().find(".error_tip").remove();
+
+
+                    });
+                }
+                if (_isGoToElement)
+                    window.scrollTo(0, $(_element).parent()[0].offsetTop - 260);
+            } catch (e) {
+                return;
+            }
+
+        },
+        /*
+            【悬浮提示框，供外围Getao调用,此方法可以动态调整宽度。】
+            _element:元素。
+            _msg:文本消息。
+            _isGoToElement:是否自动定位到消息弹出区。
+        **/
+        BasicsHoverMsgAutoWidth: function (_element, _msg, _isGoToElement) {
+            try {
+                if (GETAO.IsNullOrEmptyOrUndefined(_msg) || _element == undefined)
+                    return;
+
+                var errorDiv = document.createElement("div");
+                errorDiv.innerHTML = "<em></em><div class='wenzi'>" + _msg + "</div>";
+                errorDiv.setAttribute("class", "error-tip-autowidth");
+                //errorDiv.style.top = $(_element).parent()[0].offsetHeight + "px";
+
+                //追加内容
+                if ($(_element).parent().find(".error-tip-autowidth") == null || $(_element).parent().find(".error-tip-autowidth").length == 0) {
+                    $(_element).parent().append(errorDiv);
+
+                    $(_element).focus(function () {
+                        $(this).parent().find(".error-tip-autowidth").remove();
+                    });
+
+                    $(_element).click(function () {
+                        $(this).parent().find(".error-tip-autowidth").remove();
+                    });
+                }
+                if (_isGoToElement)
+                    window.scrollTo(0, $(_element).parent()[0].offsetTop - 260);
+            } catch (e) {
+                return;
+            }
+
+        },
+
+        /*
+            【异步请求 在请求发起时执行（显示遮罩层 和 提示文字）】
+            _operatorType：当前执行的操作名称
+        */
+        Private_Ajax_StartSend: function (_operatorType) {
+            try {
+                if (GETAO.IsLAOWANG(_operatorType))
+                    return;
+
+                if (_operatorType == "GETAO_OPERATOR_INSERT") {
+                    $(".getao-ajax-send-msg").html("正在执行【新增】操作...");
+
+                } else if (_operatorType == "GETAO_OPERATOR_DELETE") {
+                    $(".getao-ajax-send-msg").html("正在执行【删除】操作...");
+
+                } else if (_operatorType == "GETAO_OPERATOR_SELECT") {
+                    $(".getao-ajax-send-msg").html("正在执行【查询】操作...");
+
+                } else if (_operatorType == "GETAO_OPERATOR_UPDATE") {
+                    $(".getao-ajax-send-msg").html("正在执行【修改】操作...");
+
+                } else if (_operatorType == "GETAO_OPERATOR_SAVE") {
+                    $(".getao-ajax-send-msg").html("正在执行【保存】操作...");
+
+                } else if (_operatorType == "GETAO_OPERATOR_SUBMIT") {
+                    $(".getao-ajax-send-msg").html("正在执行【提交】操作...");
+
+                } else if (_operatorType == "GETAO_OPERATOR_EXAM") {
+                    $(".getao-ajax-send-msg").html("正在执行【审核】操作...");
+
+                } else if (_operatorType == "GETAO_OPERATOR_HAOSHI") {
+                    $(".getao-ajax-send-msg").html("当前操作比较耗时，请耐心等待。。。");
+                }
+                else {
+                    $(".getao-ajax-send-msg").html("数据执行中...");
+                }
+
+                //显示遮罩层
+                $(".getao-ajax-send").removeClass("none");
+                $("#getao_ajax_send_msg").removeClass("none");
+                GETAO.ShowCenterOffset4TopAndLeft("getao_ajax_send_msg", 200, 0);
+            } catch (e) {
+                return;
+            }
+        },
+
+        /*
+            【异步请求 在Private_Ajax_StartSend执行完毕之后 隐藏遮罩层】
+            _element:元素的样式名称
+        */
+        Private_Ajax_EndSend: function () {
+            try {
+                //隐藏遮罩层
+                $(".getao-ajax-send").addClass("none");
+                $("#getao_ajax_send_msg").addClass("none");
+
+            } catch (e) {
+                return;
+            }
+        }
+    },
+    /*
+        操作地址栏的Hash值，
+        参数包含Key,value.
+        Key不支持中文，别手贱。
+     */
+    HashAdd: function (key,value) {
+        try {
+
+            var HashOperator = function (_key,_value) {
+                var hash = location.hash;
+                if (!hash || hash.length == 0) {
+                    
+                    return "#" + _key + "=" + encodeURI(_value);
+                }
+                else {
+                    hash = hash.substr(1, hash.length - 1);
+
+                    var _items = hash.split('&');
+
+                    var _arrays = new Array();
+                    for (var i = 0; i < _items.length; i++) {
+                        if (_items[i]) {
+                            var tempItme = {
+                                Key: _items[i].split('=')[0] || '',
+                                Value: _items[i].split('=')[1] || ''
+                            };
+                            if (tempItme.Key.length > 0)
+                                _arrays.push(tempItme);
+                        }
+                    }
+
+                    var isFind = false;
+
+                    for (var i = 0; i < _arrays.length; i++) {
+                        if (_arrays[i].Key == _key) {
+                            _arrays[i].Value = encodeURI(_value);
+                            isFind = true;
+                            break;
+                        }
+                    }
+
+                    //没找到，自动追加
+                    if (!isFind) {
+                        _arrays.push({
+                            Key: _key,
+                            Value: encodeURI(_value)
+                        });
+                    }
+
+                    var _str = "#";
+                    for (var i = 0; i < _arrays.length; i++) {
+                        _str += _arrays[i].Key + '=' + _arrays[i].Value + "&";
+                    }
+                    return _str.substr(0, _str.length - 1);
+                }
+            }
+
+            location.hash = HashOperator(key, value);
+            
+        } catch (e) {
+
+        }
+    },
+    HashGet: function (key) {
+        try {
+            if (location.hash && location.hash.length > 0)
+            {
+                var hash = location.hash;
+                hash = hash.substr(1, hash.length - 1);
+
+                var _items = hash.split('&');
+
+                var _arrays = new Array();
+                for (var i = 0; i < _items.length; i++) {
+                    if (_items[i]) {
+                        var tempItme = {
+                            Key: _items[i].split('=')[0] || '',
+                            Value: _items[i].split('=')[1] || ''
+                        };
+                        if (tempItme.Key.length > 0)
+                        {
+                            if (tempItme.Key == key) {
+                                return decodeURI(tempItme.Value);
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            return "";
+        } catch (e) {
+
+        }
+    }
+
+};
+
+/*
+    Author：荆文姗
+    Date：2016-08-22
+    
+   【 消息弹出窗 】
+
+    1.一个对勾图标的弹出框：
+        1> ShowSuccess
+        2> ShowSuccessTowBut
+        3> ShowSuccessTowButAutoEvent
+
+
+    2.一个感叹号图标的弹出框：
+        1> ShowError
+        
+
+    3.一个购物车图标的弹出框：
+        1> ShowShopCar
+
+    
+    4.一个问号图标的弹出框：
+        1> ShowWhatConfirm
+        2> ShowWhatClose
+        3> ShowWhatTowButAutoEvent
+
+    
+    5.一个喇叭图标的弹出框：
+        1> ShowMessage
+
+
+   【 例如 】
+    GETAOMessageBox.ShowShopCar("加入购物车成功", "当购物车中以后10个产品", "您还可以","继续购物","www.biyinjishi.com");
+    GETAOMessageBox.ShowWhatConfirm("正文正文正文", "的好看敬爱是好的开始的卡是大家爱看书的监控大声地哭敬爱是电话就卡死的好看是阿萨德和煎熬卡萨丁");
+
+*/
+
+var GETAOMessageBox = window.NameSpace || {};
+
+var GETAOMessageBox = {
+
+    /*
+    关于格道消息弹出框图标格式定义
+    */
+    GETAOMessageBoxIcon: {
+        Success: "Success",             //一个对勾的icon
+        ShopCar: "ShopCar",             //一个购物车效果的icon
+        Error: "Error",                 //一个错误的感叹号的icon
+        What: "What",                   //一个问号的icon
+        Message: "Message",             //一个消息的icon
+        None: "None",                   //不显示的
+    },
+
+
+    /*
+    关于格道消息按钮样式定义
+    */
+    GETAOMessageBoxButtonStyle: {
+        Action: "Action",               //橘色按钮
+        Disable_OB: "Disable_OB",       //灰色框按钮
+        Link: "Link"                    //自定义链接
+    },
+
+    GETAOMessageBoxButton: function (style, text, eventFunction, desc, UrlDesc, linkurl, linkDesc, isAutoCloseMsgBox) {
+
+        //是否在按钮执行完事件后自动关闭其对应的消息窗口，当没有传入该值时，默认为：【true】
+        if (isAutoCloseMsgBox == null || isAutoCloseMsgBox == undefined) {
+            isAutoCloseMsgBox = true;
+        }
+
+        return {
+            Style: style,                           //GETAOMessageBoxButtonStyle
+            Text: text,                             //按钮里面的文本内容
+            Event: eventFunction,                   //点击事件
+            Desc: desc,                             //正文
+            UrlDesc: UrlDesc,                       //链接描述
+            LinkUrl: linkurl,                       //链接地址
+            linkDesc: linkDesc,                     //链接前的一句话
+            IsAutoCloseMsgBox: isAutoCloseMsgBox     //是否在按钮执行完事件后自动关闭其对应的消息窗口
+        }
+    },
+
+    /*
+      icon：图标对象，  
+      msgContent：消息正文
+      msgDesc：消息描述
+      butArray：操作区按钮数组
+    */
+    Show: function (icon, msgContent, msgDesc, butArray) {
+
+        try {
+
+            //外部大div
+            var msgbox = document.createElement("div");
+            msgbox.id = GETAO.NewGuid();
+            msgbox.className = "GETAO-MSGBOX-Box";
+
+            //关闭事件，可能被右上角的差调用，或者是被某个按钮调用
+            var CloseEvent = function () {
+                if ($(this).hasClass("GETAO-MSGBOX-Box-Close")) {
+                    //是右上角的X
+                    $(this).parent().remove();
+                }
+                else {
+                    //一定是按钮在激发关闭。
+                    $(this).parent().parent().parent().parent().remove();
+                }
+
+                $(".bord-msgBox").hide();
+
+                GETAOMessageBox.Close("#" + msgbox.id);
+            }
+
+            //关闭按钮
+            if (true) {
+                var but_close = document.createElement("span");
+                but_close.className = "GETAO-MSGBOX-Box-Close";
+                but_close.id = "GETAO-MSGBOX-Box-Close";
+                msgbox.appendChild(but_close);
+
+                but_close.onclick = CloseEvent;
+            }
+
+
+
+            //内容区域
+            var msgbox_div = document.createElement("div");
+            msgbox_div.className = "GETAO-MSGBOX-Box-Detail";
+
+            //icon
+            if (true) {
+                var msgbox_div_icon = document.createElement("div");
+                if (icon && icon != "None" && icon.length > 0) {
+                    switch (icon) {
+                        case "Success":
+                            msgbox_div_icon.className = "GETAO-MSGBOX-Icon-Success"
+                            break;
+                        case "ShopCar":
+                            msgbox_div_icon.className = "GETAO-MSGBOX-Icon-ShopCar"
+                            break;
+                        case "Error":
+                            msgbox_div_icon.className = "GETAO-MSGBOX-Icon-Error"
+                            break;
+                        case "What":
+                            msgbox_div_icon.className = "GETAO-MSGBOX-Icon-What"
+                            break;
+                        case "Message":
+                            msgbox_div_icon.className = "GETAO-MSGBOX-Icon-Message"
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                msgbox_div.appendChild(msgbox_div_icon);
+            }
+
+            //内容区域右侧
+            var msgbox_div_right = document.createElement("div");
+            msgbox_div_right.className = "GETAO-MSGBOX-Box-Content";
+
+            //内容区域右侧消息正文
+            if (true) {
+                var msgbox_div_right_content = document.createElement("div");
+                msgbox_div_right_content.className = "GETAO-MSGBOX-Box-Content-MsgContent";
+                msgbox_div_right_content.innerHTML = msgContent;
+                msgbox_div_right.appendChild(msgbox_div_right_content);
+            }
+
+
+            //内容区域右侧消息描述
+            if (msgDesc && msgDesc.length > 0) {
+                var msgbox_div_right_desc = document.createElement("div");
+                msgbox_div_right_desc.className = "GETAO-MSGBOX-Box-Content-MsgDesc";
+                msgbox_div_right_desc.innerHTML = msgDesc;
+                msgbox_div_right.appendChild(msgbox_div_right_desc);
+            }
+
+            //内容区域右侧操作区
+            if (true) {
+                var msgbox_div_right_operators = document.createElement("div");
+                msgbox_div_right_operators.className = "GETAO-MSGBOX-Button";
+
+                if (butArray && butArray.length > 0) {
+                    for (var i = 0; i < butArray.length; i++) {
+
+
+
+                        (function (i) {
+
+                            var curBut = butArray[i];
+
+                            if (curBut.Style == GETAOMessageBox.GETAOMessageBoxButtonStyle.Link) {
+
+                                var div = document.createElement("div");
+
+                                var oI = document.createElement("i");
+                                oI.className = "msgTip";
+                                oI.textContent = curBut.linkDesc;
+                                div.appendChild(oI);
+
+
+                                var oA = document.createElement("a");
+                                oA.className = "GETAO-MSGBOX-Button-MsLinkk";
+                                oA.textContent = curBut.UrlDesc;
+                                oA.setAttribute("href", curBut.LinkUrl);
+                                oA.setAttribute("target", "_blank");
+                                div.appendChild(oA);
+
+
+
+                                msgbox_div_right_operators.appendChild(div);
+                            }
+                            else {
+                                var input = document.createElement("input");
+                                //input.onclick = butArray[i].Event;
+                                input.value = curBut.Text;
+
+                                //循环创建
+                                if (curBut.Style == GETAOMessageBox.GETAOMessageBoxButtonStyle.Action) {
+                                    input.className = "GETAO-MSGBOX-Button-MsgConfirm";
+                                    //if (butArray[i].Event != null)
+                                    //    input.onclick = butArray[i].Event;
+                                    //else
+                                    //    input.onclick = CloseEvent;
+                                }
+                                else if (curBut.Style == GETAOMessageBox.GETAOMessageBoxButtonStyle.Disable_OB) {
+                                    input.className = "GETAO-MSGBOX-Button-MsgCancel";
+                                    //input.onclick = CloseEvent;
+
+                                    //if (butArray[i].Event != null)
+                                    //{
+                                    //    $(input).on("click", butArray[i].Event);
+                                    //}
+
+
+                                }
+                                else {
+                                    input.className = "GETAO-MSGBOX-Button-MsgCancel";
+
+                                    //input.onclick = CloseEvent;
+
+                                    //if (butArray[i].Event != null)
+                                    //    input.onclick += butArray[i].Event;
+                                }
+
+
+
+                                input.type = "button";
+                                msgbox_div_right_operators.appendChild(input);
+                                var tempBindEvent = null;
+                                if (curBut.Event != null) {
+                                    tempBindEvent = curBut.Event;
+                                }
+
+                                input.onclick = function () {
+                                    if (curBut.IsAutoCloseMsgBox) {
+                                        CloseEvent();
+                                    }
+
+                                    try {
+                                        if (tempBindEvent != null) {
+                                            tempBindEvent();
+                                        };
+                                    } catch (e) {
+
+                                    }
+                                }
+
+                                //if (butArray[i].IsAutoCloseMsgBox) {
+                                //    $(input).on("click", function () {
+                                //        GETAOMessageBox.Close("#" + msgbox.id);
+                                //    });
+                                //}
+                            }
+                        })(i)
+
+
+                    }
+                }
+                    //错误情况执行以下
+                else {
+                    var input = document.createElement("input");
+                    input.value = "我知道了";
+                    input.className = "GETAO-MSGBOX-Button-MsgCancel";
+                    input.type = "button";
+                    msgbox_div_right_operators.appendChild(input);
+                }
+                msgbox_div_right.appendChild(msgbox_div_right_operators);
+            }
+
+            msgbox_div.appendChild(msgbox_div_right);
+            msgbox.appendChild(msgbox_div);
+            document.getElementsByTagName("body")[0].appendChild(msgbox);
+
+            GETAO.ShowCenter(msgbox.id);
+            $(".bord-msgBox").show();
+
+            return msgbox.id;
+        } catch (e) {
+            return null;
+        }
+    },
+
+    Close: function (id) {
+        try {
+
+            $(id).remove();
+        } catch (e) {
+
+        }
+    },
+
+
+    /*------------------------------图标为一个对勾弹窗框Start--------------------------------------*/
+    /*
+        显示一个弹窗框，图标是一个对勾，仅包含一个"确定"按钮
+    */
+    ShowSuccess: function (msg, desc) {
+        GETAOMessageBox.ShowSuccessBase(msg, desc, false, false);
+    },
+    /*
+        显示一个弹窗框，图标是一个对勾，包含一个"确定"按钮和一个"关闭"按钮
+    */
+    ShowSuccessTowBut: function (msg, desc) {
+        GETAOMessageBox.ShowSuccessBase(msg, desc, true, false);
+    },
+    /*  
+        显示一个弹窗框，图标是一个对勾，包含一个"确定"按钮和一个"关闭"按钮,且该方法自动包含"返回值"
+    */
+    ShowSuccessTowButAutoEvent: function (msg, desc) {
+        return GETAOMessageBox.ShowSuccessBase(msg, desc, true, true);
+    },
+
+    ShowSuccessBase: function (msg, desc, isHasCloseBut, isHasReturnValue) {
+        /*
+        对勾的弹窗框的基本信息
+        msg：标题
+        desc：描述
+        isHasCloseBut：是否包含"关闭"按钮
+        isHasReturnValue：是否有返回值
+        */
+        try {
+
+            var butArray = new Array();
+
+
+            /* "确定" 按钮 */
+            if (true) {
+
+                if (isHasReturnValue) {
+                    butArray.push(new GETAOMessageBox.GETAOMessageBoxButton(GETAOMessageBox.GETAOMessageBoxButtonStyle.Action, "确定", function () { return true; }));
+                }
+                else {
+                    butArray.push(new GETAOMessageBox.GETAOMessageBoxButton(GETAOMessageBox.GETAOMessageBoxButtonStyle.Action, "确定", null));
+                }
+            }
+
+            /* "关闭" 按钮*/
+            if (isHasCloseBut) {
+
+                if (isHasReturnValue) {
+                    butArray.push(new GETAOMessageBox.GETAOMessageBoxButton(GETAOMessageBox.GETAOMessageBoxButtonStyle.Disable_OB, "关闭", function () { return false; }));
+                }
+                else {
+                    butArray.push(new GETAOMessageBox.GETAOMessageBoxButton(GETAOMessageBox.GETAOMessageBoxButtonStyle.Disable_OB, "关闭", null));
+                }
+            }
+
+            /* 是否有返回值 */
+            if (isHasReturnValue) {
+                return GETAOMessageBox.Show(GETAOMessageBox.GETAOMessageBoxIcon.Success, msg, desc, butArray);
+            }
+            else {
+                GETAOMessageBox.Show(GETAOMessageBox.GETAOMessageBoxIcon.Success, msg, desc, butArray);
+            }
+        } catch (e) {
+
+        }
+
+    },
+    /*------------------------------图标为一个对勾弹窗框End---------------------------------------*/
+
+
+    /*------------------------------图标为一个错误的感叹号弹窗框Start---------------------------------------*/
+    /*
+        显示一个弹窗框，图标是一个感叹号，仅包含一个"我知道了"按钮
+    */
+    ShowError: function (msg, desc) {
+        GETAOMessageBox.ShowErrorBase(msg, desc);
+    },
+
+    ShowErrorBase: function (msg, desc) {
+        /*
+        感叹号的弹窗框的基本信息
+        msg：标题
+        desc：描述
+        */
+        try {
+
+            var butArray = new Array();
+            butArray.push(new GETAOMessageBox.GETAOMessageBoxButton(GETAOMessageBox.GETAOMessageBoxButtonStyle.Disable_OB, "我知道了", null));
+
+            return GETAOMessageBox.Show(GETAOMessageBox.GETAOMessageBoxIcon.Error, msg, desc, butArray);
+        } catch (e) {
+
+        }
+    },
+    /*------------------------------图标为一个错误的感叹号弹窗框End-----------------------------------------*/
+
+    /*------------------------------图标为一个购物车的弹窗框Start---------------------------------------*/
+    /*
+        显示一个弹窗框，图标是一个购物车，包含了"去购物车结算！"按钮，且该方法包含"您还继续+链接跳转页面"
+    */
+
+
+    ShowShopCar: function (msg, desc, linkDesc, urldesc, linkUrl) {
+        try {
+            GETAOMessageBox.ShowShopCarBase(msg, desc, linkDesc, urldesc, linkUrl)
+        } catch (e) {
+
+        }
+    },
+
+    ShowShopCarBase: function (msg, desc, linkDesc, urldesc, linkUrl) {
+        /*
+            msg：标题
+            desc：内容
+            linkDesc：链接前一句话的描述
+            UrlDesc:链接描述
+            linkUrl：跳转链接
+        */
+        try {
+
+            var butArray = new Array();
+            /* "自定义链接" 按钮*/
+            if (linkUrl && linkUrl.length > 0) {
+                butArray.push(new GETAOMessageBox.GETAOMessageBoxButton(GETAOMessageBox.GETAOMessageBoxButtonStyle.Action, "去购物车结算！", null));
+                butArray.push(new GETAOMessageBox.GETAOMessageBoxButton(GETAOMessageBox.GETAOMessageBoxButtonStyle.Link, "", null, desc, urldesc, linkUrl, linkDesc));
+            }
+
+            return GETAOMessageBox.Show(GETAOMessageBox.GETAOMessageBoxIcon.ShopCar, msg, desc, butArray);
+
+        } catch (e) {
+
+        }
+    },
+
+    /*------------------------------图标为一个购物车的弹窗框End-----------------------------------------*/
+
+    /*------------------------------图标为一个问号的弹窗框Start---------------------------------------*/
+    /*
+        显示一个弹窗框，图标是一个问号，仅包含了"确定"按钮
+    */
+    ShowWhatConfirm: function (msg, desc) {
+        GETAOMessageBox.ShowWhatBase(msg, desc, false, false);
+    },
+    /*
+        显示一个弹窗框，图标是一个问号，包含了"确定"按钮和"关闭"按钮
+    */
+    ShowWhatClose: function (msg, desc) {
+        GETAOMessageBox.ShowWhatBase(msg, desc, true, false);
+    },
+    /*
+        显示一个弹窗框，图标是一个问号，包含了"确定"按钮和"关闭"按钮，且该方法自动包含"返回值"
+    */
+    ShowWhatTowButAutoEvent: function (msg, desc) {
+        return GETAOMessageBox.ShowWhatBase(msg, desc, true, true);
+    },
+
+    ShowWhatBase: function (msg, desc, isHasCloseBut, isHasReturnValue) {
+        try {
+
+            /*
+            对勾的弹窗框的基本信息
+            msg：标题
+            desc：描述
+            isHasCloseBut：是否包含"关闭"按钮
+            isHasReturnValue：是否有返回值
+            */
+
+            var butArray = new Array();
+
+            /* "确定" 按钮 */
+            if (true) {
+
+                if (isHasReturnValue) {
+                    butArray.push(new GETAOMessageBox.GETAOMessageBoxButton(GETAOMessageBox.GETAOMessageBoxButtonStyle.Action, "确定", function () { return true; }));
+                }
+                else {
+                    butArray.push(new GETAOMessageBox.GETAOMessageBoxButton(GETAOMessageBox.GETAOMessageBoxButtonStyle.Action, "确定", null));
+                }
+            }
+
+            /* "关闭" 按钮*/
+            if (isHasCloseBut) {
+
+                if (isHasReturnValue) {
+                    butArray.push(new GETAOMessageBox.GETAOMessageBoxButton(GETAOMessageBox.GETAOMessageBoxButtonStyle.Disable_OB, "关闭", function () { return false; }));
+                }
+                else {
+                    butArray.push(new GETAOMessageBox.GETAOMessageBoxButton(GETAOMessageBox.GETAOMessageBoxButtonStyle.Disable_OB, "关闭", null));
+                }
+            }
+
+            /* 是否有返回值 */
+            if (isHasReturnValue) {
+                return GETAOMessageBox.Show(GETAOMessageBox.GETAOMessageBoxIcon.What, msg, desc, butArray);
+            }
+            else {
+                GETAOMessageBox.Show(GETAOMessageBox.GETAOMessageBoxIcon.What, msg, desc, butArray);
+            }
+        } catch (e) {
+
+        }
+    },
+
+    /*------------------------------图标为一个问号的弹窗框End-----------------------------------------*/
+
+    /*------------------------------图标为一个喇叭的弹窗框End-----------------------------------------*/
+    /*
+        显示一个弹窗框，图标是一个喇叭，包含了"我知道了"按钮
+    */
+    ShowMessage: function (msg, desc) {
+        try {
+
+            GETAOMessageBox.ShowMessageBase(msg, desc);
+        } catch (e) {
+
+        }
+    },
+
+    ShowMessageBase: function (msg, desc) {
+        try {
+
+            var butArray = new Array();
+            butArray.push(new GETAOMessageBox.GETAOMessageBoxButton(GETAOMessageBox.GETAOMessageBoxButtonStyle.Disable_OB, "我知道了", null));
+
+            return GETAOMessageBox.Show(GETAOMessageBox.GETAOMessageBoxIcon.Message, msg, desc, butArray);
+
+        } catch (e) {
+
+        }
+
+    }
+
+    /*------------------------------图标为一个喇叭的弹窗框End-----------------------------------------*/
+
+
+
+}
+
+
+//点击统计
+function clickStat(tag) {
+    var data = { value: encodeURI(tag) }
+    GETAO.Analytics.CreateAnalytics(GETAO_AT_USER_CLICK, data);
+}
+
+/*------------------Model---------------------*/
+//前台页面顶部选择的当前城市
+function City() {
+    var city = {
+        FPI: "",
+        Name: "",
+        Point: {
+            Lng: 0,
+            Lat: 0
+        },
+        MLevel: 12
+    }
+    return city;
+}
+
+//产品详情页选择的收货地址城市
+function FreightCity() {
+    var freightcity = {
+        ProvinceCode: "",
+        CityCode: "",
+        Name: ""
+    };
+
+    return freightcity;
+}
+
+//购物车
+function UserShoppingCart() {
+    var userShoppingCart = {
+        //SC: "",//商家编号 SellerCode
+        //PC: "",//产品编号 SellerProductCode
+        CC: "",//套餐编号 SellerProductExtComboCode
+        CP: "",//购物份数 Copys
+        CT: ""//创建时间 CreateTime
+    };
+
+    return userShoppingCart;
+}
+
+
+//图片异常全局事件
+function GETAO_FUNC_IMAGEERROR(obj) {
+    try {
+        if ($(obj).attr("data-flag") == "1") {
+            $(obj).attr("src", $(obj).attr("data-error-url"));
+            $(obj).attr("data-flag", "0");
+        }
+    } catch (e) {
+
+    }
+}
+
+/*--------------------扩展--------------------*/
+/*
+获取地址栏参数。
+调用方式：$.request.queryString["name"];
+该方法需要JQuery支持
+*/
+$.request = (function () {
+    var apiMap = {};
+    function request(queryStr) {
+        var api = {};
+        if (apiMap[queryStr]) { return apiMap[queryStr]; }
+        api.queryString = (function () {
+            var urlParams = {};
+            var e,
+            d = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); },
+            q = queryStr.substring(queryStr.indexOf('?') + 1);
+            r = /([^&=]+)=?([^&]*)/g;
+            while (e = r.exec(q)) urlParams[d(e[1])] = d(e[2]);
+            return urlParams;
+        })();
+        api.geturl = function () {
+            var url = queryStr.substring(0, queryStr.indexOf('?') + 1);
+            for (var p in api.queryString) {
+                url += p + '=' + api.queryString[p] + "&";
+            }
+            if (url.lastIndexOf('&') == url.length - 1) {
+                return url.substring(0, url.lastIndexOf('&'));
+            }
+            return url;
+        }
+        apiMap[queryStr] = api;
+        return api;
+    }
+    $.extend(request, request(window.location.href));
+    return request;
+})();
+
+Array.prototype.indexOf = function (value) {
+    for (var i = 0; i < this.length; i++) {
+        if (this[i] == value)
+            return i;
+    }
+    return -1;
+}
+
+Array.prototype.remove = function (value) {
+    var index = this.indexOf(value)
+    if (index > -1) {
+        this.splice(index, 1);
+    }
+}
+
+var GetaoMap = function () {
+    this.Keys = new Array();
+    this.Datas = new Array();
+    this.Add = function (key, value) {
+        try {
+            if (this.ContainsKey(key))
+                return true;
+            else {
+                this.Keys.push(key);
+                this.Datas[key] = value;
+                return true;
+            }
+        } catch (e) {
+            return false;
+        }
+    }
+    this.ContainsKey = function (key) {
+        try {
+            if (this.Datas[key] == null)
+                return false;
+            else
+                return true;
+        } catch (e) {
+            return false;
+        }
+    }
+    this.Remove = function (key) {
+        try {
+            if (this.ContainsKey(key)) {
+                this.Keys.remove(key);
+                this.Datas[key] = null;
+            }
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+    this.Get = function (key) {
+        try {
+            if (this.ContainsKey(key)) {
+                return this.Datas[key];
+            }
+            return null;
+        } catch (e) {
+            return null;
+        }
+    }
+    this.Init = function (obj) {
+        try {
+            if (obj) {
+                this.Keys = obj.Keys;
+                this.Datas = obj.Datas;
+                return this;
+            }
+        } catch (e) {
+            return null;
+        }
+    }
+}
+
+
+$(function () {
+    /*---------------------伪下拉---------------------*/
+    /*点击弹出下拉菜单*/
+    $(".select_box").click(function (event) {
+        event.stopPropagation();
+        $(this).find(".select_option").toggle();
+        $(this).parent().siblings().find(".select_option").hide();
+    });
+
+    /*下拉项移入移出事件*/
+    $(".select_option li").mouseover(function () {
+        $(this).css("backgroundColor", "#e8e8e8");
+    }).mouseout(function () {
+        $(this).css("backgroundColor", "#fff");
+    });
+    /*---------------------伪下拉-end---------------------*/
+
+
+
+
+
+
+    /*---------------------回车激发---------------------*/
+    /*
+    *   enter样式类，代表着一个文本框，在按下回车的时候触发的事件，要求实现event-enter属性
+    */
+    $('.enter').keyup(function (event) {
+        if (event.keyCode == 13) {
+            var str = $(this).attr("event-enter");
+            if (!GETAO.IsNullOrUndefined(str))
+                eval(str);
+        }
+    });
+
+    /*---------------------回车激发-end--------------------*/
+
+
+    /* --------------------- 全局关闭事件-----------------------------*/
+    $('.getao-close').click(function () {
+        /*
+            .getao-close，全局关闭事件。调用当前元素中存储的data-event-id来找到指定需要隐藏的元素。
+            data-event-mask，代表需要隐藏的遮罩层。如果是通过class查找，则传入的样式名称前加“.”例如：【.bord】。如果是Id则id前面加#号，例如:【#bord】;
+            data-event-function,代表在关闭后需要执行的js方法。该项可以为空
+
+        */
+        //隐藏父级容器
+        var eventId = $(this).attr("data-event-id");
+        if (eventId) {
+            $(eventId).hide();
+        }
+        //隐藏遮罩
+        var eventMask = $(this).attr("data-event-mask");
+        if (eventMask) {
+            $(eventMask).hide();
+        }
+        //回掉JS
+        var eventfunction = $(this).attr("data-event-function");
+        if (eventfunction) {
+            eval(eventfunction);
+        }
+    });
+
+    /*--------------------------全局关闭事件  End-------------------------------*/
+
+
+
+
+    /* --------------------- 全局点击显示事件-----------------------------*/
+
+    $('.getao-open').click(function () {
+        //打开之前执行的JS
+        var eventBeforefunction = $(this).attr("data-event-before-function");
+        if (eventBeforefunction) {
+            eval(eventBeforefunction);
+        }
+        //显示指定的容器
+        var eventId = $(this).attr("data-event-id");
+        if (eventId) {
+            $(eventId).show();
+
+        }
+
+        //打开遮罩
+        var eventMask = $(this).attr("data-event-mask");
+        if (eventMask) {
+            $(eventMask).show();
+        }
+        //打开以后执行的JS
+        var eventAfterfunction = $(this).attr("data-event-after-function");
+        if (eventAfterfunction) {
+            eval(eventAfterfunction);
+        }
+    });
+
+    /* --------------------- 全局点击显示事件 End-----------------------------*/
+
+
+    /* --------------------- 执行操作等待效果 -----------------------------*/
+    //GETAO.ShowCenterOffset4Left("GETAO_ajax_sendmsg,-18");
+    //$("#GETAO_ajax_send").css("height", $(document).height()).fadeIn("fast");
+    /* --------------------- 执行操作等待效果 End-----------------------------*/
+
+
+    /*---------------------tabs切换---------------------*/
+    /*
+        <ul class='getao-tab'>
+            <li class='getao-tab-title' data-action='a'></li>
+            <li class='getao-tab-title' data-action='b'></li>
+            <li class='getao-tab-title' data-action='c'></li>
+        </ul>
+        <div class='getao-tab-panel' data-action='a'></div>
+        <div class='getao-tab-panel' data-action='b'></div>
+        <div class='getao-tab-panel' data-action='c'></div>
+    **/
+    $('.getao-tab .getao-tab-title').click(function () {
+        var dataAction = $(this).attr("data-action");
+        if (dataAction) {
+            $.each($(".getao-tab-panel"), function (index, div) {
+                if ($(div).attr("data-action") == dataAction) {
+                    $(div).show();
+                } else {
+                    $(div).hide();
+                }
+            });
+        }
+    });
+
+    /*---------------------tabs切换 End-----------------*/
+
+
+
+
+
+});
+
+/*---------------------keyUp激发---------------------*/
+/*
+*如果文本框是只能输入数字则在class中加入getao-keyup-number样式
+*getao-keyup-number该样式无实际意义，只是用来控制只能输入数字
+*/
+$(document).on("keyup", ".getao-keyup-number", function (event) {
+    try {
+        if (event.keyCode != 9) {
+            var c = $(this);
+            if (/[^\d]/.test(c.val)) {
+                var temp = c.val().replace(/[^\d]/g, '');
+                $(this).val(temp);
+                $(this).focus();
+            }
+        }
+    } catch (e) {
+
+    }
+});
+
+/*剩余字符*/
+$(document).on("keyup", ".getao-keyup-surplusnum", function () {
+    try {
+        var planMsg = $(this).attr("data-planid");
+        var maxLength = $(this).attr("data-maxlength");
+
+        if (planMsg && maxLength) {
+            maxLength = parseInt(maxLength, 0);
+
+            if (maxLength - $(this).val().length >= 0) {
+                $(planMsg).text(maxLength - $(this).val().length + "/" + maxLength);
+            }
+            else {
+                $(planMsg).text(0 + "/" + maxLength);
+                $(this).val($(this).val().substr(0, maxLength));
+            }
+
+            if ($(this).val().length >= maxLength) {
+                return;
+            }
+        }
+    } catch (e) {
+        alert(e.message);
+    }
+});
+/*---------------------keyUp激发-end--------------------*/
+
+/*文本框聚焦*/
+//$(document).on("focus", ".getao-input-focus", function () {
+//    if (GETAO.IsLAOWANG($(this).val())) {
+//        //$(this).attr("data-displaywords", $(this).attr("placeholder"));
+//        //$(this).attr("placeholder", "");
+//        $(this).css("color", "#999");
+//    }
+//});
+
+//$(document).on("keyup", ".getao-input-focus", function () {
+//    if (GETAO.IsLAOWANG($(this).val())) {
+//        $(this).css("color", "#999");
+//    }
+//    else {
+//        $(this).css("color", "#333");
+//    }
+
+//});
+
+//$(document).on("blur", ".getao-input-focus", function () {
+//    if (GETAO.IsLAOWANG($(this).val())) {
+//        //$(this).attr("placeholder", $(this).attr("data-displaywords"));
+//        $(this).css("color", "#999");
+//    }
+//});
+
+
+
+
+/*当鼠标点击的是选项区以外的区域时，如果选项区显示了，则将其隐藏*/
+$(document).click(function (event) {
+    var eo = $(event.target);
+    if ($(".select_box").is(":visible") && eo.attr("class") != "select_option" && !eo.parent(".select_option").length) {
+        $('.select_option').hide();
+    }
+});
+
+
+
+/*滚动超出拦截*/
+$.fn.scrollUnique = function () { return $(this).each(function () { var eventType = 'mousewheel'; if (document.mozHidden !== undefined) { eventType = 'DOMMouseScroll'; } $(this).on(eventType, function (event) { var scrollTop = this.scrollTop, scrollHeight = this.scrollHeight, height = this.clientHeight; var delta = (event.originalEvent.wheelDelta) ? event.originalEvent.wheelDelta : -(event.originalEvent.detail || 0); if ((delta > 0 && scrollTop <= delta) || (delta < 0 && scrollHeight - height - scrollTop <= -1 * delta)) { this.scrollTop = delta > 0 ? 0 : scrollHeight; event.preventDefault(); } }); }); };
+

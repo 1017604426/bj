@@ -1,0 +1,250 @@
+.all_box {
+    width: 1520px;
+}
+
+.zc_logo {
+    width: 1110px;
+    margin: 0 auto;
+    height: 100px;
+    line-height: 100px;
+}
+.zc_logo a{
+    display: block;
+    margin-top: 25px;
+    float: left;
+    width: 140px;
+    height: 48px;
+    line-height: 48px;
+}
+.zc_logo img {
+
+
+}
+
+.zc_logo h3 {
+    margin-left: 100px;
+    float: left;
+
+}
+
+/*以上是顶部*/
+#zc_content {
+    width: 1520px;
+    height: 383px;
+    margin: 0 auto;
+    background-color: #fafcfe;
+}
+.content_box{
+    width: 1110px;
+    margin: 0 auto;
+}
+.zc_text {
+    width: 1110px;
+    height: 50px;
+    line-height: 50px;
+
+
+}
+
+.zc_text p {
+    margin-left: 100px;
+    margin-top: 10px;
+    font-size: 24px;
+}
+
+.zc_left {
+    width: 481px;
+    height: 241px;
+    margin-left: 100px;
+    margin-top: 20px;
+    border-right: 1px solid #bcbcbc;
+
+}
+
+.zc_left input {
+    width: 310px;
+    height: 32px;
+}
+
+.number1 {
+    margin-top: 20px;
+    height: 32px;
+
+}
+
+.error_number {
+    position: relative;
+    display: none;
+    z-index: 9;
+}
+
+.error_number em {
+    background-image: url(../images/pfp_icon.png);
+    background-position-x: -295px;
+    background-position-y: -345px;
+    position: absolute;
+    top: -5px;
+    left: 80px;
+    width: 8px;
+    height: 6px;
+}
+
+.error_number .wenzi {
+    width: 140px;
+    height: 24px;
+    border-radius: 1px;
+    background-color: #ff6666;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    line-height: 24px;
+    margin-left: 68px;
+
+}
+
+.code {
+    margin-top: 30px;
+    position: relative;
+}
+
+.error_yzm {
+
+}
+
+.error_yzm em {
+    background-image: url(../images/pfp_icon.png);
+    background-position-x: -295px;
+    background-position-y: -345px;
+    position: absolute;
+    top: 30px;
+    left: 80px;
+    width: 8px;
+    height: 6px;
+}
+
+.error_yzm .wenzi {
+    width: 140px;
+    height: 24px;
+    border-radius: 1px;
+    background-color: #ff6666;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    line-height: 24px;
+    margin-left: 68px;
+}
+
+.code button {
+    margin: 0;
+    padding: 0;
+    border: 1px solid transparent;
+    outline: none;
+    background-color: #3399ff;
+    color: white;
+    font-size: 12px;
+    width: 100px;
+    height: 24px;
+    position: absolute;
+    left: 270px;
+    top: 6px;
+}
+
+.pass {
+    margin-top: 30px;
+}
+
+.error_password {
+    width: 140px;
+    height: 24px;
+    border-radius: 1px;
+    background-color: #ff6666;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    line-height: 24px;
+    margin-left: 68px;
+    position: relative;
+}
+
+.error_password em {
+    background-image: url(../images/pfp_icon.png);
+    background-position-x: -295px;
+    background-position-y: -345px;
+    position: absolute;
+    top: -5px;
+    left: 20px;
+    width: 8px;
+    height: 6px;
+}
+
+.error_password .wenzi {
+
+}
+
+.btn {
+    margin-top: 20px;
+    width: 298px;
+    height: 35px;
+    line-height: 35px;
+    background-color: #3399ff;
+    margin-left: 70px;
+    border-radius: 2px;
+}
+
+.btn button {
+    margin: 0;
+    padding: 0;
+    border: 1px solid transparent;
+    outline: none;
+    background-color: #3399ff;
+    color: white;
+    margin-left: 75px;
+}
+
+.text {
+    margin-top: 20px;
+    color: #3399ff;
+    margin-left: 75px;
+}
+
+.zc_right {
+    width: 300px;
+    height: 190px;
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.wx {
+    display: inline-block;
+    background-image: url(../images/pfp_icon.png);
+    background-position-x: -15px;
+    background-position-y: -554px;
+    width: 30px;
+    height: 30px;
+}
+
+.qq {
+    display: inline-block;
+    background-image: url(../images/pfp_icon.png);
+    background-position-x: -65px;
+    background-position-y: -554px;
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+.clicks {
+    margin-top: 20px;
+}
+
+.clicks .text22 {
+    color: #3399ff;
+}
+
+.zc_right p {
+    margin-top: 60px;
+}
+
+.lt {
+    margin-top: 20px;
+}

@@ -1,0 +1,850 @@
+﻿ @charset "utf-8";
+/*------------------------------------------全局CSS,v1.0.0------------------------------------------------------*/
+
+body { margin: 0px; padding: 0px;background-color: #fff; }
+/* CSS Document */
+/*-----------标题设置---------------*/
+h1 { font-size: 16px; font-family:sans-serif;   font-weight: bold; }
+h2 { font-size: 14px; letter-spacing: 1px;font-family:sans-serif;  font-weight: bold; }
+h3 { font-size: 12px; font-weight: bold; }
+h4 { font-size: 12px;font-weight: bold; }
+/*CSS reset*/
+html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:inherit;font-weight:inherit;}
+del,ins{text-decoration:none;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:baseline;}sub{vertical-align:baseline;}legend{color:#000;}input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}
+/*input::-webkit-input-placeholder{color:#999;}*/
+/*input:focus::-webkit-input-placeholder{color:#333;}*/
+img{border:0; font-size:12px; color:#999;}
+
+
+/*禁止所有的边框出现黄边框*/
+*:focus { outline: none; }
+/*所有<a>标签出现小手*/
+a { cursor: pointer; }
+/*去除a标签图片边框*/
+a img { border: 0px; }
+/*清楚a标签的下划线*/
+a { text-decoration: none; }
+.none{display:none;}
+i{ font-style: normal;}
+/*设置字体为粗体*/
+.weight{font-weight:bold;}
+/*设置鼠标为手型*/
+.pointer{cursor:pointer;}
+
+/*字体大小（10-20间隔1，20-40间隔2）*/
+.f10{font-size:10px;}
+.f12{font-size:12px;}
+.f13{font-size:13px;}
+.f14{font-size:14px;}
+.f15{font-size:15px;}
+.f16{font-size:16px;}
+.f17{font-size:17px;} 
+.f18{font-size:18px;}
+.f19{font-size:19px;}
+.f20{font-size:20px;}
+.f22{font-size:22px;}
+.f24{font-size:24px;}
+.f28{font-size:28px;}
+.f30{font-size:30px;}
+.f32{font-size:32px;}
+.f34{font-size:34px;}
+/*小手*/
+.pointer{cursor: pointer;}
+/*字体加粗 */
+.fb{font-weight:bold}
+.fn{font-weight:normal;}
+.t2{text-indent:2em;}
+
+/*行高 120 -- 250  间隔10 */
+.lh120{line-height:120%;}
+.lh130{line-height:130%;}
+.lh140{line-height:140%;}
+.lh150{line-height:150%;}
+.lh160{line-height:160%;}
+.lh170{line-height:170%;}
+.lh180{line-height:180%;}
+.lh190{line-height:190%;}
+.lh200{line-height:200%;}
+.lh210{line-height:210%;}
+.lh220{line-height:220%;}
+.lh230{line-height:230%;}
+.lh240{line-height:240%;}
+.lh250{line-height:250%;}
+
+/*下划线*/
+.unl{text-decoration: underline;}
+.no_unl{text-decoration:none;}
+
+/*浮动 、字体显示（居左，居中、居右）*/
+.tl{text-align:left;}
+.tc{text-align:center;}
+.tr{text-align:right;}
+.bc{margin-left:0;margin-right:0;}
+.fl{float:left;display:inline;}
+.fr{float:right;display:inline;}
+.cb{clear:both;visibility:hidden;}
+.cl{clear:left;visibility:hidden;}
+.cr{clear:right;visibility:hidden;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.vm{vertical-align:middle;}
+.pr{position:relative;}
+.pa{position:absolute;}
+.abs-right{position:absolute;right:0}
+.hidden{visibility:hidden;}
+em{font-style:normal;}
+.none{display:none;}
+
+
+/* 宽度  5-500间隔5px，500-1000间隔10px ，1000以上含几个特殊1002,1024,1500  */
+.w5{width:5px;}
+.w10{width:10px;}
+.w15{width:15px;}
+.w20{width:20px;}
+.w25{width:25px;}
+.w30{width:30px;}
+.w35{width:35px;}
+.w40{width:40px;}
+.w45{width:45px;}
+.w50{width:50px;}
+.w55{width:55px;}
+.w60{width:60px;}
+.w65{width:65px;}
+.w70{width:70px;}
+.w75{width:75px;}
+.w80{width:80px;}
+.w85{width:85px; }
+.w90{width:90px;}
+.w95{width:95px;}
+.w100{width:100px;}
+.w105{width:105px;}
+.w110{width:110px;}
+.w115{width:115px;}
+.w120{width:120px;}
+.w125{width:125px;}
+.w128{width:128px;}
+.w130{width:130px;}
+.w135{width:135px;}
+.w140{width:140px;}
+.w145{width:145px;}
+.w150{width:150px;}
+.w155{width:155px;}
+.w160{width:160px;}
+.w165{width:165px;}
+.w170{width:170px;}
+.w175{width:175px;}
+.w180{width:180px;}
+.w185{width:185px;}
+.w190{width:190px;}
+.w195{width:195px;}
+.w200{width:200px;}
+.w205{width:205px;}
+.w210{width:210px;}
+.w215{width:215px;}
+.w220{width:220px;}
+.w225{width:225px;}
+.w230{width:230px;}
+.w235{width:235px;}
+.w240{width:240px;}
+.w245{width:245px;}
+.w250{width:250px;}
+.w255{width:255px;}
+.w260{width:260px;}
+.w265{width:265px;}
+.w270{width:270px;}
+.w275{width:275px;}
+.w280{width:280px;}
+.w285{width:285px;}
+.w290{width:290px;}
+.w295{width:295px;}
+.w300{width:300px;}
+.w305{width:305px;}
+.w310{width:310px;}
+.w315{width:315px;}
+.w320{width:320px;}
+.w325{width:325px;}
+.w330{width:330px;}
+.w335{width:335px;}
+.w340{width:340px;}
+.w345{width:345px;}
+.w350{width:350px;}
+.w355{width:355px;}
+.w360{width:360px;}
+.w365{width:365px;}
+.w370{width:370px;}
+.w375{width:375px;}
+.w380{width:380px;}
+.w385{width:385px;}
+.w390{width:390px;}
+.w395{width:395px;}
+.w400{width:400px;}
+.w405{width:405px;}
+.w410{width:410px;}
+.w415{width:415px;}
+.w420{width:420px;}
+.w425{width:425px;}
+.w430{width:430px;}
+.w435{width:435px;}
+.w440{width:440px;}
+.w445{width:445px;}
+.w450{width:450px;}
+.w455{width:455px;}
+.w460{width:460px;}
+.w465{width:465px;}
+.w470{width:470px;}
+.w475{width:475px;}
+.w480{width:480px;}
+.w485{width:485px;}
+.w490{width:490px;}
+.w495{width:495px;}
+.w500{width:500px;}
+.w510{width:510px;}
+.w520{width:520px;}
+.w530{width:530px;}
+.w540{width:540px;}
+.w550{width:550px;}
+.w560{width:560px;}
+.w570{width:570px;}
+.w580{width:580px;}
+.w590{width:590px;}
+.w600{width:600px;}
+.w610{width:610px;}
+.w620{width:620px;}
+.w630{width:630px;}
+.w640{width:640px;}
+.w650{width:650px;}
+.w660{width:660px;}
+.w670{width:670px;}
+.w680{width:680px;}
+.w690{width:690px;}
+.w700{width:700px;}
+.w710{width:710px;}
+.w720{width:720px;}
+.w730{width:730px;}
+.w740{width:740px;}
+.w750{width:750px;}
+.w760{width:760px;}
+.w770{width:770px;}
+.w780{width:780px;}
+.w790{width:790px;}
+.w800{width:800px;}
+.w810{width:810px;}
+.w820{width:820px;}
+.w830{width:830px;}
+.w840{width:840px;}
+.w850{width:850px;}
+.w860{width:860px;}
+.w870{width:870px;}
+.w875{width:875px;}
+.w880{width:880px;}
+.w890{width:890px;}
+.w900{width:900px;}
+.w910{width:910px;}
+.w920{width:920px;}
+.w930{width:930px;}
+.w940{width:940px;}
+.w950{width:950px;}
+.w960{width:960px;}
+.w970{width:970px;}
+.w975{width:975px;}
+.w980{width:980px;}
+.w990{width:990px;}
+.w1000{width:1000px;}
+
+.w1002{width:1002px;}
+.w1100{width:1100px;}
+.w1024{width:1024px;}
+.w1200{width:1200px;}
+.w1210{width:1210px;}
+.w1500{width:1500px;}
+.w{width:100%}
+/*高度   5-800间隔5px，800-1000间隔100px */
+.h5{height:5px;}
+.h10{height:10px;}
+.h15{height:15px;}
+.h20{height:20px;}
+.h25{height:25px;}
+.h30{height:30px;}
+.h35{height:35px;}
+.h40{height:40px;}
+.h45{height:45px;}
+.h50{height:50px;}
+.h55{height:55px;}
+.h60{height:60px;}
+.h65{height:65px;}
+.h70{height:70px;}
+.h75{height:75px;}
+.h80{height:80px;}
+.h85{height:85px;}
+.h90{height:90px;}
+.h95{height:95px;}
+.h105{height:105px;}
+.h110{height:110px;}
+.h115{height:115px;}
+.h120{height:120px;}
+.h125{height:125px;}
+.h130{height:130px;}
+.h135{height:135px;}
+.h140{height:140px;}
+.h145{height:145px;}
+.h150{height:150px;}
+.h155{height:155px;}
+.h160{height:160px;}
+.h165{height:165px;}
+.h170{height:170px;}
+.h175{height:175px;}
+.h180{height:180px;}
+.h185{height:185px;}
+.h190{height:190px;}
+.h195{height:195px;}
+.h200{height:200px;}
+.h205{height:205px;}
+.h210{height:210px;}
+.h215{height:215px;}
+.h220{height:220px;}
+.h225{height:225px;}
+.h230{height:230px;}
+.h235{height:235px;}
+.h240{height:240px;}
+.h245{height:245px;}
+.h250{height:250px;}
+.h255{height:255px;}
+.h260{height:260px;}
+.h265{height:265px;}
+.h270{height:270px;}
+.h275{height:275px;}
+.h280{height:280px;}
+.h285{height:285px;}
+.h290{height:290px;}
+.h295{height:295px;}
+.h300{height:300px;}
+.h305{height:305px;}
+.h310{height:310px;}
+.h315{height:315px;}
+.h320{height:320px;}
+.h325{height:325px;}
+.h330{height:330px;}
+.h335{height:335px;}
+.h340{height:340px;}
+.h345{height:345px;}
+.h350{height:350px;}
+.h355{height:355px;}
+.h360{height:360px;}
+.h365{height:365px;}
+.h370{height:370px;}
+.h375{height:375px;}
+.h380{height:380px;}
+.h385{height:385px;}
+.h390{height:390px;}
+.h395{height:395px;}
+.h400{height:400px;}
+.h405{height:405px;}
+.h410{height:410px;}
+.h415{height:415px;}
+.h420{height:420px;}
+.h425{height:425px;}
+.h430{height:430px;}
+.h435{height:435px;}
+.h440{height:440px;}
+.h445{height:445px;}
+.h450{height:450px;}
+.h455{height:455px;}
+.h460{height:460px;}
+.h465{height:465px;}
+.h470{height:470px;}
+.h475{height:475px;}
+.h480{height:480px;}
+.h485{height:485px;}
+.h490{height:490px;}
+.h495{height:495px;}
+.h400{height:500px;}
+
+.h510{height:510px;}
+.h520{height:520px;}
+.h530{height:530px;}
+.h540{height:540px;}
+.h550{height:550px;}
+.h560{height:560px;}
+.h570{height:570px;}
+.h580{height:580px;}
+.h590{height:590px;}
+.h600{height:600px;}
+.h610{height:610px;}
+.h620{height:620px;}
+.h630{height:630px;}
+.h640{height:640px;}
+.h650{height:650px;}
+.h660{height:660px;}
+.h670{height:670px;}
+.h680{height:680px;}
+.h690{height:690px;}
+.h700{height:700px;}
+.h710{height:710px;}
+.h720{height:720px;}
+.h730{height:730px;}
+.h740{height:740px;}
+.h750{height:750px;}
+.h760{height:760px;}
+.h770{height:770px;}
+.h780{height:780px;}
+.h790{height:790px;}
+.h800{height:800px;}
+.h800{height:900px;}
+.h800{height:1000px;}
+.h{height:100%}
+
+/*
+外边距 
+m:5-30间隔5px
+mt、mr、ml、mb：1-15间隔1px，15-50间隔5px，50-100间隔10px
+*/
+.m5{margin:5px;}
+.m10{margin:10px;}
+.m15{margin:15px;}
+.m20{margin:20px;}
+.m25{margin:25px;}
+.m30{margin:30px;}
+/*mt*/
+.mt1{margin-top:1px;}
+.mt2{margin-top:2px;}
+.mt3{margin-top:3px;}
+.mt4{margin-top:4px;}
+.mt5{margin-top:5px;}
+.mt6{margin-top:6px;}
+.mt7{margin-top:7px;}
+.mt8{margin-top:8px;}
+.mt9{margin-top:9px;}
+.mt10{margin-top:10px;}
+.mt11{margin-top:11px;}
+.mt12{margin-top:12px;}
+.mt13{margin-top:13px;}
+.mt14{margin-top:14px;}
+.mt15{margin-top:15px;}
+.mt20{margin-top:20px;}
+.mt25{margin-top:25px;}
+.mt30{margin-top:30px;}
+.mt35{margin-top:35px;}
+.mt40{margin-top:40px;}
+.mt45{margin-top:45px;}
+.mt50{margin-top:50px;}
+.mt60{margin-top:60px;}
+.mt70{margin-top:70px;}
+.mt80{margin-top:80px;}
+.mt90{margin-top:90px;}
+.mt100{margin-top:100px;}
+.mt120{margin-top:120px;}
+.mt130{margin-top:130px;}
+.mt150{margin-top:150px;}
+
+/*mb*/
+.mb1{margin-bottom:1px;}
+.mb2{margin-bottom:2px;}
+.mb3{margin-bottom:3px;}
+.mb4{margin-bottom:4px;}
+.mb5{margin-bottom:5px;}
+.mb6{margin-bottom:6px;}
+.mb7{margin-bottom:7px;}
+.mb8{margin-bottom:8px;}
+.mb9{margin-bottom:9px;}
+.mb10{margin-bottom:10px;}
+.mb11{margin-bottom:11px;}
+.mb12{margin-bottom:12px;}
+.mb13{margin-bottom:13px;}
+.mb14{margin-bottom:14px;}
+.mb15{margin-bottom:15px;}
+.mb20{margin-bottom:20px;}
+.mb25{margin-bottom:25px;}
+.mb30{margin-bottom:30px;}
+.mb35{margin-bottom:35px;}
+.mb40{margin-bottom:40px;}
+.mb45{margin-bottom:45px;}
+.mb50{margin-bottom:50px;}
+.mb60{margin-bottom:60px;}
+.mb70{margin-bottom:70px;}
+.mb80{margin-bottom:80px;}
+.mb90{margin-bottom:90px;}
+.mb100{margin-bottom:100px;}
+.ml1{margin-left:1px;}
+.ml2{margin-left:2px;}
+.ml3{margin-left:3px;}
+.ml4{margin-left:4px;}
+.ml5{margin-left:5px;}
+.ml6{margin-left:6px;}
+.ml7{margin-left:7px;}
+.ml8{margin-left:8px;}
+.ml9{margin-left:9px;}
+.ml10{margin-left:10px;}
+.ml11{margin-left:11px;}
+.ml12{margin-left:12px;}
+.ml13{margin-left:13px;}
+.ml14{margin-left:14px;}
+.ml15{margin-left:15px;}
+.ml16{margin-left:16px;}
+.ml17{margin-left:17px;}
+.ml20{margin-left:20px;}
+.ml25{margin-left:25px;}
+.ml28{margin-left:28px;}
+.ml30{margin-left:30px;}
+.ml35{margin-left:35px;}
+.ml40{margin-left:40px;}
+.ml45{margin-left:45px;}
+.ml50{margin-left:50px;}
+.ml60{margin-left:60px;}
+.ml70{margin-left:70px;}
+.ml80{margin-left:80px;}
+.ml90{margin-left:90px;}
+.ml100{margin-left:100px;}
+.ml110{margin-left:110px;}
+.ml120{margin-left:120px;}
+.ml130{margin-left:130px;}
+.ml140{margin-left:140px;}
+.ml150{margin-left:150px;}
+.ml160{margin-left:160px;}
+.ml170{margin-left:170px;}
+.ml180{margin-left:180px;}
+.ml190{margin-left:190px;}
+.ml200{margin-left:200px;}
+.ml260{margin-left:260px;}
+.ml270{margin-left:270px;}
+
+
+/*mr*/
+.mr0{margin-right:0px;}
+.mr1{margin-right:1px;}
+.mr2{margin-right:2px;}
+.mr3{margin-right:3px;}
+.mr4{margin-right:4px;}
+.mr5{margin-right:5px;}
+.mr6{margin-right:6px;}
+.mr7{margin-right:7px;}
+.mr8{margin-right:8px;}
+.mr9{margin-right:9px;}
+.mr10{margin-right:10px;}
+.mr11{margin-right:11px;}
+.mr12{margin-right:12px;}
+.mr13{margin-right:13px;}
+.mr14{margin-right:14px;}
+.mr15{margin-right:15px;}
+.mr16{margin-right:16px;}
+.mr20{margin-right:20px;}
+.mr25{margin-right:25px;}
+.mr30{margin-right:30px;}
+.mr35{margin-right:35px;}
+.mr40{margin-right:40px;}
+.mr45{margin-right:45px;}
+.mr50{margin-right:50px;}
+.mr60{margin-right:60px;}
+.mr70{margin-right:70px;}
+.mr80{margin-right:80px;}
+.mr90{margin-right:90px;}
+.mr100{margin-right:100px;}
+
+/*
+内边距 
+p:5-30间隔5px
+pt、pr、pl、pb：1-15间隔1px，15-50间隔5px，50-100间隔10px
+*/
+
+
+.p1{padding:1px;}
+.p2{padding:2px;}
+.p3{padding:3px;}
+.p4{padding:4px;}
+.p5{padding:5px;}
+.p10{padding:10px;}
+.p15{padding:15px;}
+.p20{padding:20px;}
+.p25{padding:25px;}
+.p30{padding:30px;}
+/*pt*/
+.pt1{padding-top:1px;}
+.pt2{padding-top:2px;}
+.pt3{padding-top:3px;}
+.pt4{padding-top:4px;}
+.pt5{padding-top:5px;}
+.pt6{padding-top:6px;}
+.pt7{padding-top:7px;}
+.pt8{padding-top:8px;}
+.pt9{padding-top:9px;}
+.pt10{padding-top:10px;}
+.pt11{padding-top:11px;}
+.pt12{padding-top:12px;}
+.pt13{padding-top:13px;}
+.pt14{padding-top:14px;}
+.pt15{padding-top:15px;}
+.pt20{padding-top:20px;}
+.pt25{padding-top:25px;}
+.pt30{padding-top:30px;}
+.pt35{padding-top:35px;}
+.pt40{padding-top:40px;}
+.pt45{padding-top:45px;}
+.pt50{padding-top:50px;}
+.pt60{padding-top:60px;}
+.pt70{padding-top:70px;}
+.pt80{padding-top:80px;}
+.pt90{padding-top:90px;}
+.pt100{padding-top:100px;}
+/*pb*/
+.pb1{padding-bottom:1px;}
+.pb2{padding-bottom:2px;}
+.pb3{padding-bottom:3px;}
+.pb4{padding-bottom:4px;}
+.pb5{padding-bottom:5px;}
+.pb6{padding-bottom:6px;}
+.pb7{padding-bottom:7px;}
+.pb8{padding-bottom:8px;}
+.pb9{padding-bottom:9px;}
+.pb10{padding-bottom:10px;}
+.pb11{padding-bottom:11px;}
+.pb12{padding-bottom:12px;}
+.pb13{padding-bottom:13px;}
+.pb14{padding-bottom:14px;}
+.pb15{padding-bottom:15px;}
+.pb20{padding-bottom:20px;}
+.pb25{padding-bottom:25px;}
+.pb30{padding-bottom:30px;}
+.pb35{padding-bottom:35px;}
+.pb40{padding-bottom:40px;}
+.pb45{padding-bottom:45px;}
+.pb50{padding-bottom:50px;}
+.pb60{padding-bottom:60px;}
+.pb70{padding-bottom:70px;}
+.pb80{padding-bottom:80px;}
+.pb90{padding-bottom:90px;}
+.pb100{padding-bottom:100px;}
+/*pl*/
+.pl1{padding-left:1px;}
+.pl2{padding-left:2px;}
+.pl3{padding-left:3px;}
+.pl4{padding-left:4px;}
+.pl5{padding-left:5px;}
+.pl6{padding-left:6px;}
+.pl7{padding-left:7px;}
+.pl8{padding-left:8px;}
+.pl9{padding-left:9px;}
+.pl10{padding-left:10px;}
+.pl11{padding-left:11px;}
+.pl12{padding-left:12px;}
+.pl13{padding-left:13px;}
+.pl14{padding-left:14px;}
+.pl15{padding-left:15px;}
+.pl20{padding-left:20px;}
+.pl25{padding-left:25px;}
+.pl30{padding-left:30px;}
+.pl35{padding-left:35px;}
+.pl40{padding-left:40px;}
+.pl45{padding-left:45px;}
+.pl50{padding-left:50px;}
+.pl60{padding-left:60px;}
+.pl70{padding-left:70px;}
+.pl80{padding-left:80px;}
+.pl90{padding-left:90px;}
+.pl100{padding-left:100px;}
+.pl140{padding-left:140px;}
+/*pr*/
+.pr1{padding-right:1px;}
+.pr2{padding-right:2px;}
+.pr3{padding-right:3px;}
+.pr4{padding-right:4px;}
+.pr5{padding-right:5px;}
+.pr6{padding-right:6px;}
+.pr7{padding-right:7px;}
+.pr8{padding-right:8px;}
+.pr9{padding-right:9px;}
+.pr10{padding-right:10px;}
+.pr11{padding-right:11px;}
+.pr12{padding-right:12px;}
+.pr13{padding-right:13px;}
+.pr14{padding-right:14px;}
+.pr15{padding-right:15px;}
+.pr20{padding-right:20px;}
+.pr25{padding-right:25px;}
+.pr30{padding-right:30px;}
+.pr35{padding-right:35px;}
+.pr40{padding-right:40px;}
+.pr45{padding-right:45px;}
+.pr50{padding-right:50px;}
+.pr60{padding-right:60px;}
+.pr70{padding-right:70px;}
+.pr80{padding-right:80px;}
+.pr90{padding-right:90px;}
+.pr100{padding-right:100px;}
+
+/*定义边框颜色*/
+.border-fff{border:1px solid #fff;}
+.border-3399ff{border:1px solid #3399ff;}
+.border-ff9900{border:1px solid #ff9900;}
+.border-ff6666{border:1px solid #ff6666;}
+.border-d5d5d5{border:1px solid #d5d5d5;}
+.border-dedede{border:1px solid #dedede;}
+.border-33cb34{border:1px solid #33cb34;}
+
+/*定义背景颜色*/
+.bg-fff{background-color:#fff;}
+.bg-999{background-color:#999;}
+.bg-ccc{background-color:#ccc;}
+/*蓝色*/
+.bg-3399ff{background-color:#3399ff;}
+/*橙色*/
+.bg-ff9900{background-color:#ff9900;}
+/*浅-红色*/
+.bg-ff6666{background-color:#ff6666;}
+/*灰色-最深*/
+.bg-bcbcbc{background-color:#bcbcbc;}
+/*灰色，深*/
+.bg-f4f4f4{background-color:#f4f4f4;}
+/*灰色，浅*/
+.bg-f8f8f8{background-color:#f8f8f8;}
+/*灰色，超浅*/
+.bg-fbfbfb{background-color:#fbfbfb;}
+/*暗绿色*/
+.bg-66cc66{background-color:#66cc66;}
+/*亮绿色*/
+.bg-65dc45{background-color:#65dc45;}
+/*亮粉色*/
+.bg-ff33ff{background-color:#ff33ff;}
+/*土豪金*/
+.bg-ffcc00{background-color:#ffcc00;}
+
+
+
+
+/*定义字体颜色*/
+.color-fff{color:#fff;}
+.color-000{color:#000;}
+.color-ccc{color:#ccc;}
+.color-333{color:#333;}
+.color-666{color:#666;}
+.color-999{color:#999;}
+.color-c60{color:#c60;}
+.color-3399ff{color:#3399ff;}
+.color-ff9900{color:#ff9900;}
+.color-ff6666{color:#ff6666;}
+.color-33cb34{color:#33cb34;}
+.color-4dd9ff{color:#4dd9ff;}
+.color-33cc00{color:#33cc00;}
+.color-ff8914{color:#ff8914;}
+.color-ff6600{color:#ff6600;}
+
+
+
+/*按钮*/
+.button{padding:5px 10px; text-align:center; border:0; min-width:60px; cursor:pointer;display:inline-block; }
+.button-default{text-align:center; border:0; min-width:60px; display:inline-block; }
+.button-boborder{text-align:center; min-width:60px; display:inline-block; }
+
+/*按钮扩展-Stone*/
+/*基础按钮样式*/
+.but{padding:5px 10px; text-align:center; border:0; min-width:60px; cursor:pointer;display:inline-block; height:30px;color:#fff;}
+/*按钮-操作(蓝色)*/
+.but-operator {font-size:12px;background-color:#0099ff;border-radius:3px;}
+.but-operator:hover{background-color:#0072ff;}
+/*按钮-危险（红色）*/
+.but-warning {font-size:12px;background-color:#ff6666;border-radius:3px;}
+.but-warning:hover{background-color:#ea4444;}
+/*按钮-主动（橙色）*/
+.but-action {font-size:12px;background-color:#ff9900;border-radius:3px;}
+.but-action:hover{background-color:#ff7e00;}
+/*按钮-安全（绿色）*/
+.but-safely {font-size:12px;background-color:#66cc33;border-radius:3px;}
+.but-safely:hover{background-color:#5cb800; }
+/*按钮-禁用（灰色）*/
+.but-disable {font-size:12px;background-color:#999;border-radius:3px; }
+
+/*按钮-只有边框(OnlyBorder)*/
+/*按钮-只有边框-操作（蓝色）*/
+.but-ob-operator {font-size:12px;background-color:#fff; border:1px solid #0099ff; color:#0099ff; border-radius:3px; cursor:pointer;}
+.but-ob-operator:hover {border:1px solid #0072ff; color:#0072ff;}
+/*按钮-只有边框-危险（红色）*/
+.but-ob-warning {font-size:12px;background-color:#fff; border:1px solid #ff6666; color:#ff6666; border-radius:3px;cursor:pointer;}
+.but-ob-warning:hover {border:1px solid #ff6666; color:#ea4444;}
+/*按钮-只有边框-主动（橙色）*/
+.but-ob-action {font-size:12px;background-color:#fff; border:1px solid #ff9900; color:#ff9900; border-radius:3px;cursor:pointer;}
+.but-ob-action:hover {border:1px solid #ff9900; color:#ff7e00; }
+/*按钮-只有边框-安全（绿色）*/
+.but-ob-safely {font-size:12px;background-color:#fff; border:1px solid #66cc33; color:#66cc33; border-radius:3px;cursor:pointer;}
+.but-ob-safely {border:1px solid #5cb800; color:#5cb800;}
+
+
+/*css3圆角*  ( border-radius:2px-5px;) */
+.border-radius2{border-radius:2px;}
+.border-radius3{border-radius:3px;}
+.border-radius4{border-radius:4px;}
+.border-radius5{border-radius:5px;}
+.border-radius5
+
+/*------------------------------------------全局CSS End------------------------------------------------------*/
+
+
+
+/*------------------------------------------公用帮助样式------------------------------------------------------*/
+/*超出隐藏*/
+.yinc{text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+
+
+
+/*带有确定与取消的公用提示弹窗口*/
+.pop_box{padding:20px;background-color:#fff; border-radius:5px; position:absolute;z-index:99; border:5px solid #fff;}
+.pop_box .top_msg{width:100%;height:50px; line-height:30px; border-bottom:1px solid #e7e7e7;}
+.pop_box .title_msg{height:50px; line-height:30px; float:left; font-size:18px; font-family:'Microsoft YaHei'; color:#999;}
+.pop_box .title_msg span{color:#3399ff;}
+.close_tb{background: url("https://res.biyinjishi.com/img/s_v1/pfp/pfp_icon.png") -10px -219px;width:22px;height:22px; float:right;margin:5px 0 0 0; cursor:pointer;}
+.close_tb:hover{background-position:-42px -219px;}
+.pop_box .text_con{min-width:300px; max-width:600px;line-height:30px;}
+.poeration_group{text-align:center;margin:30px 0 10px 0;}
+
+
+
+
+/*遮盖浮动*/
+.bord { width: 100%; height: 100%; background-color: #000; position: fixed; z-index:9; filter: alpha(opacity=50); opacity: 0.5; top: 0; left: 0; display:none; }
+.bord-msgBox { width: 100%; height: 100%; background-color: #000; position: fixed; z-index:9; filter: alpha(opacity=50); opacity: 0.5; top: 0; left: 0; display:none; }
+
+
+/*执行操作等待效果*/
+#GETAO_ajax_send{ width: 100%; height: 100%; position: absolute; z-index:9; top: 0; left: 0; text-align:center; }
+#GETAO_ajax_send span{width: 100%; height: 100%; background-color: #000; position: absolute; z-index:10; filter: alpha(opacity=50); opacity: 0.5; top: 0; left: 0; display:block;}
+#GETAO_ajax_sendmsg{height:50px; line-height:50px; padding:0px 50px; text-align:center; color:#fff; font-size:12px; font-family:'微软雅黑'; position:absolute;margin:0 auto; border-radius:5px; z-index:999; display:inline-block; background-color:#3399ff;}
+
+
+.getao-ajax-send {width: 100%; height: 100%; background-color: #000; position: fixed; z-index: 9; filter: alpha(opacity=50); opacity: 0.5; top: 0; left: 0;}
+.getao-ajax-send-msg {width:100%; height:100%; position:absolute; text-align:center; color:#fff;z-index:10;}
+/*------------------------------------------公用帮助样式 End------------------------------------------------------*/
+
+
+/*异常提示*/
+.error-tip-autowidth{ position:relative; z-index:9; left:0px; padding:0 10px; height:24px; line-height:24px;  text-align:center; border-radius:2px; background-color:#ff6666; box-shadow:0 1px 3px #999; }
+.error-tip-autowidth em{background:url("https://res.biyinjishi.com/img/s_v1/pfp/pfp_icon.png") -295px -345px;width:8px;height:6px; position:absolute; top:-5px;  left:10px;}
+.error-tip-autowidth .wenzi{color:#fff; font-size:12px; font-style:normal;float:left;  font-weight:100;}
+
+
+
+/*----------------2016-08-22/荆文姗/GETAO-MSGBOX/CSS样式 Start ----------------*/
+
+/*外部CSS样式*/
+.GETAO-MSGBOX-Box{min-width:300px;max-width:800px; min-height:100px;padding:30px;border:1px solid #ccc;border-radius:5px;position:absolute; top:30px;left:100px;z-index:10;background:#fff;}
+.GETAO-MSGBOX-Box-Close{background:url("https://res.biyinjishi.com/img/s_v1/pfp/getaosoft_icon.png") no-repeat -10px -50px;width:12px;height:12px;cursor:pointer; position:absolute; right:10px;top:10px;z-index:15;}
+.GETAO-MSGBOX-Box-Close:hover{background-position:-32px -50px;}
+.GETAO-MSGBOX-Box-Detail{float:left; width:100%;}
+/*左侧内容CSS样式*/
+.GETAO-MSGBOX-Box-Content{float:left;margin-left:50px;width:300px;}
+.GETAO-MSGBOX-Box-Content .GETAO-MSGBOX-Box-Content-MsgContent{float:left; width:100%; font-size:16px;font-family:'Microsoft YaHei';color:#333; line-height:30px;margin-bottom:10px;}
+.GETAO-MSGBOX-Box-Content .GETAO-MSGBOX-Box-Content-MsgDesc{float:left;width:100%;line-height:22px;font-size:12px;color:#666;padding-bottom:10px;}
+.none{display:none;}
+.cb{clear:both;}
+/*右侧按钮CSS样式*/
+.GETAO-MSGBOX-Button-MsLink{float:left;}
+.GETAO-MSGBOX-Button a{float:left;text-decoration:none;position:relative;margin-left:5px;font-size:12px;line-height:30px;}
+.GETAO-MSGBOX-Button i{float:left;font-style:normal;font-size:12px;line-height:30px;margin-left:5px;}
+.GETAO-MSGBOX-Button-MsgConfirm{float:left;min-width:80px; padding:0 10px; height:30px;line-height:30px;color:#fff; background-color:#ff9900; text-align:center;font-size:12px;border:none;cursor:pointer; border-radius:3px;margin-right:10px;}
+.GETAO-MSGBOX-Button-MsgConfirm:hover{color:#ff6600; color:#fff;background-color:#ff7e00;}
+.GETAO-MSGBOX-Button-MsgCancel{float:left; width:80px;height:30px;line-height:30px;color:#333;  background-color:#fff; text-align:center;font-size:12px;cursor:pointer; border-radius:3px;border:1px solid #ccc;}
+/*图标CSS样式*/
+.GETAO-MSGBOX-Icon-Success{float:left;width:30px;height:30px;background:url("https://res.biyinjishi.com/img/s_v1/pfp/getaosoft_icon.png") no-repeat -10px -10px; margin-right:20px; position:absolute; left:30px;}
+.GETAO-MSGBOX-Icon-ShopCar{float:left;width:30px;height:30px;background:url(https://res.biyinjishi.com/img/s_v1/pfp/getaosoft_icon.png) no-repeat -50px -10px; margin-right:20px; position:absolute; left:30px;}
+.GETAO-MSGBOX-Icon-Error{float:left;width:30px;height:30px;background:url(https://res.biyinjishi.com/img/s_v1/pfp/getaosoft_icon.png) no-repeat -90px -10px; margin-right:20px; position:absolute; left:30px;}
+.GETAO-MSGBOX-Icon-What{float:left;width:30px;height:30px;background:url(https://res.biyinjishi.com/img/s_v1/pfp/getaosoft_icon.png) no-repeat -130px -10px; margin-right:20px; position:absolute; left:30px;}
+.GETAO-MSGBOX-Icon-Message{float:left;width:30px;height:30px;background:url(https://res.biyinjishi.com/img/s_v1/pfp/getaosoft_icon.png) no-repeat -170px -10px; margin-right:20px; position:absolute; left:30px;}
+
+/*-----------------2016-08-22/荆文姗/GETAO-MSGBOX/CSS样式 End ---------------*/

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>比集印市model</title>
+    <link rel="stylesheet" href="css/csh.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="index_jquery.js"></script>
+</head>
+<body>
+<div id="model">
+    <div id="top_nav">
+        <div class="top_left" onmouseleave="hides()">
+            <a id="logo_btn" href="html/login.html">登陆即享优惠</a>
+            <a href="html/registered.html">注册新用户</a>
+            <span>|</span>
+            <a href="javascript:void(0)" onclick="shows()">
+                <span id="city_text">北京</span>
+                <span id="zc_icon"></span>
+            </a>
+
+            <div class="city_box" id="city_box" style="display: none">
+                <ul>
+                    <li class="clear">
+                        <p>热门城市</p>
+                        <div class="citys rm">
+                            <a href="index.html">北京</a>
+                            <a href="index.html">上海</a>
+                            <a href="index.html">广州</a>
+                            <a href="index.html">深圳</a>
+                            <a href="index.html">天津</a>
+                        </div>
+
+                    </li>
+                    <li class="clear">
+                        <p>华北地区</p>
+                        <div class="citys">
+                            <a href="index.html">北京</a>
+                            <a href="index.html">天津</a>
+                            <a href="index.html">石家庄</a>
+                            <a href="index.html">唐山</a>
+                            <a href="index.html">邯郸</a>
+                            <a href="index.html">太&nbsp;原</a>
+                            <a href="index.html"> &nbsp;呼和浩特</a>
+                            <a href="index.html">沈阳</a>
+                            <a href="index.html">大连</a>
+                            <a href="index.html">长春</a>
+                        </div>
+
+                    </li>
+                    <li class="clear">
+                        <p>华东地区</p>
+                        <div class="citys">
+                            <a href="index.html">上海</a>
+                            <a href="index.html">南京</a>
+                            <a href="index.html">无锡</a>
+                            <a href="index.html">苏州</a>
+                            <a href="index.html">杭州</a>
+                            <a href="index.html">宁波</a>
+                            <a href="index.html">温州</a>
+                            <a href="index.html">合肥</a>
+                            <a href="index.html">福州</a>
+                            <a href="index.html">厦门</a>
+                            <a href="index.html">南昌</a>
+                            <a href="index.html">济南</a>
+                            <a href="index.html">青岛</a>
+                            <a href="index.html">淄博</a>
+                            <a href="index.html">烟台</a>
+                        </div>
+
+                    </li>
+                    <li class="clear">
+                        <p>中部西部</p>
+                        <div class="citys">
+                            <a href="index.html">郑州</a>
+                            <a href="index.html">洛阳</a>
+                            <a href="index.html">武汉</a>
+                            <a href="index.html">长沙</a>
+                            <a href="index.html">重庆</a>
+                            <a href="index.html">成都</a>
+                            <a href="index.html">贵阳</a>
+                            <a href="index.html">昆明</a>
+                            <a href="index.html">拉萨</a>
+                        </div>
+
+                    </li>
+                    <li class="clear">
+                        <p>华南地区</p>
+                        <div class="citys">
+                            <a href="index.html">广州</a>
+                            <a href="index.html">深圳</a>
+                            <a href="index.html">珠海</a>
+                            <a href="index.html">佛山</a>
+                            <a href="index.html">东莞</a>
+                            <a href="index.html">南宁</a>
+                            <a href="index.html">海口</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="mores">
+                    <a href="">查看更多城市 ></a>
+                </div>
+
+            </div>
+        </div>
+        <div class="top_right">
+            <ul>
+                <li>
+                    <a id="my_jy" href="javascript:void(0)"><span id="transaction"></span>我的交易</a>
+                    <span>|</span>
+                </li>
+                <li>
+
+                    <a href="html/login.html"><span id="collection"></span>我的收藏</a>
+                    <span>|</span>
+                </li>
+                <li>
+
+                    <a href="html/login.html"><span id="service"></span>商家服务</a>
+                    <span>|</span>
+                </li>
+                <li>
+
+                    <a href="html/login.html"><span id="contact"></span>联系我们</a>
+                    <span>|</span>
+                </li>
+                <li>
+
+                    <a href="html/login.html">
+                        <span id="opinion"></span>
+                        意见反馈</a>
+                </li>
+            </ul>
+
+        </div>
+        <ul id="my_dd">
+            <li><a href="">我的预约</a></li>
+            <li><a href="">我的订单</a></li>
+            <li><a href="">优惠红包</a></li>
+            <li><a href="">评价晒单</a></li>
+        </ul>
+    </div>
+    <div id="top_seach">
+        <div class="seach_left lf">
+            <a href=""><img src="images/pfp_logo.png" alt=""></a>
+        </div>
+        <div class="seach_middle lf">
+            <div id="search">
+                <a class="sr" href="javascript:void(0)">
+                    <input id="searchs" onfocus="cx()" onblur="xs()" type="text"
+                           placeholder="" value="来自己做一本DIY相册！">
+                </a>
+                <a class="cp"
+                   href="https://www.biyinjishi.com/search/%E6%B5%B7%E6%B2%B8%E6%B2%B3%E7%BF%BB/a3?s=3">产品</a>
+                <a class="sj"
+                   href="https://www.biyinjishi.com/search/%E6%B5%B7%E6%B2%B8%E6%B2%B3%E7%BF%BB/a1?s=1">商家</a>
+                <a class="zs"
+                   href="https://www.biyinjishi.com/search/%E6%B5%B7%E6%B2%B8%E6%B2%B3%E7%BF%BB/a2?s=2">知识</a>
+            </div>
+            <div id="ygq">
+                <a href="">艺术品复制</a>
+                <a href="">高端名片</a>
+                <a href="">墙贴</a>
+                <a href="">课本复印</a>
+                <a href="">创意礼品</a>
+                <a href="">展架</a>
+            </div>
+        </div>
+        <div class="seach_right rf">
+            <div class="app lf">
+                <div class="phone"></div>
+                <div class="phone_2">
+                    <p>手机版APP</p>
+                    <span>专享红包领不停</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="kf lf">
+                <div class="cust">
+
+                </div>
+                <div class="cust_2">
+                    <p>客服电话</p>
+                    <span>400-100-9617</span>
+                </div>
+            </div>
+
+            <div class="icon rf" onmouseenter="" id="icon">
+                <span id="wx"></span>
+                <span id="wb"></span>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div id="or_code">
+            <img src="images/wxwb.jpg" alt="">
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <!--以上是搜索栏部分-->
+    <div id="nav_box">
+        <div class="nav_left lf">
+            <div class="left_top">
+                <a href=""><span id="print"></span>印刷产品分类</a>
+            </div>
+
+        </div>
+        <div class="nav_middle lf">
+            <ul>
+                <li id="frist1"><a href="">印刷</a></li>
+                <li><a href="">产品</a></li>
+                <li><a href="">附近</a></li>
+                <li><a href="">商家</a></li>
+                <li><a href="">优选</a></li>
+                <li><a href="">行业产品</a></li>
+                <li><a href="">知识</a></li>
+                <li><a href="">活动专区</a></li>
+                <li><a href="">关于</a></li>
+            </ul>
+        </div>
+        <div class="nav_right rf">
+            <a href=""><span id="shop"></span> &nbsp;我的购物车<span id="num">0</span></a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!--以上是导航部分-->
+    <div id="banner">
+        <div id="left_nav">
+            <ul>
+                <li><a href="">日常办公</a></li>
+                <li><a href="">宣传展示</a></li>
+                <li><a href="">活动营销</a></li>
+                <li><a href="">形象装饰</a></li>
+                <li><a href="">生产经营</a></li>
+                <li><a href="">资料打印</a></li>
+                <li><a href="">个性定制 <span></span> </a></li>
+                <li><a href="">设计服务</a></li>
+                <li><a href="">更多服务</a></li>
+                <div class="clear"></div>
+            </ul>
+        </div>
+        <div id="carousel_box" onmouseover="show_low()" onmouseout="hiddle_low()" onmouseleave="leaves()">
+            <div id="arrow">
+                <div id="arr_left" onclick="lb_left()"></div>
+                <div id="arr_right" onclick="lb_right()"></div>
+            </div>
+            <div id="carousel" onmouseenter="intos()">
+                <a class="cars" id="car_1" href="javascript:void(0)" style="z-index: 1">
+                    <img src="images/lb1.jpg" alt="">
+                </a>
+                <a class="cars" id="car_2" href="javascript:void(0) " style="z-index: 0;width: 840px;height: 300px;">
+                    <img src="images/lb2.jpg" alt="">
+                </a>
+                <a class="cars" id="car_3" href="javascript:void(0)" style="z-index: -1">
+                    <img src="images/aaa.jpg" alt="">
+                </a>
+            </div>
+            <div id="dot">
+                <ul>
+                    <li class="dot1 lf" z="0" onclick="dots(this)"><a href="javascript:void(0)"></a></li>
+                    <li class="dot2 lf" z="1" onclick="dots(this)"><a href="javascript:void(0)"></a></li>
+                    <li class="dot3 lf" z="2" onclick="dots(this)"><a href="javascript:void(0)"></a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="recom">
+            <div class="rec_1">
+            <span>专业的印刷品定制采购及印刷服务
+                <br>
+                商推荐平台
+                </span>
+                <i></i>
+            </div>
+
+            <div class="rec_2">
+                <span id="syml"></span>
+                <div class="rec_content">
+                    <p class="one">909 <span>个产品</span></p>
+                    <p class="two">9959 <span>个商家</span></p>
+                </div>
+                <span id="symr"></span>
+            </div>
+
+            <div class="eva_box" id="eva_box">
+                <div class="eva1" id="eva1">
+
+                    <div class="times">
+                        <span class="p_left lf">凌云总部13386449500</span>
+                        <span class="p_right lf">251天前评论</span>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="eva2" id="eva2">
+                    <p>
+                        一直在这边打印资料，离我单位近所以挺方便的，东西也挺齐全的要打印装订什么等等都能拿走。这边几个小伙伴动作还挺快的，解决我要的急件，
+                        他们晚上很晚都上班的，有时我急的东西半夜来也有人打印的。
+                    </p>
+                    <div class="times2">
+                        <span class="p2_left lf">伊人淡雅泪</span>
+                        <span class="p2_right lf">394天前评论</span>
+                        <div class="clear"></div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="buy_box">
+                <a class="buy1 fl" href="">
+                    <h1 class="by1"></h1>
+                    <span>印刷导购</span>
+                </a>
+                <a class="buy2 fl" href="">
+                    <p class="by2"></p>
+                    <span>精心推荐</span>
+                </a>
+                <a class="buy3 fr" href="">
+                    <p class="by3"></p>
+                    <span>放心购买</span>
+                </a>
+                <div class="clear"></div>
+            </div>
+            <div class="price">
+
+            </div>
+
+        </div>
+
+        <div class="clear"></div>
+        <!--以上是轮播图板块-->
+
+    </div>
+    <div id="middle_box">
+        <div class="mid">
+            <div id="mid_left">
+                <div id="mid_nav">
+                    <h1 class="title1 lf"><a href="">限时推荐</a></h1>
+                    <h1 class="title2 lf"><a href="">印比三家</a></h1>
+                    <div class="clear"></div>
+                </div>
+                <div id="mid_img">
+                    <div class="mid_img1 lf">
+                        <img src="images/jsbaner.jpg" alt="">
+                        <div class="mid_time">
+                            <span id="day">39天</span>
+                            <span id="hour">02</span>
+                            <a>:</a>
+                            <span id="minute">36</span>
+                            <a>:</a>
+                            <span id="second">40</span>
+                        </div>
+                        <div class="mid_pic">
+
+                            <p>渐逝物集（老旧物件的专属照片书，最有情怀的父亲节礼物）</p>
+                            <strong>￥59.9</strong>
+                            <span>月销量0</span>
+
+                        </div>
+                    </div>
+                    <div class="mid_img2 lf">
+                        <img src="images/ber1.jpg" alt="">
+                        <div class="mid_time2">
+                            <span>39天</span>
+                            <span>02</span>
+                            <a>:</a>
+                            <span>36</span>
+                            <a>:</a>
+                            <span>40</span>
+                        </div>
+                        <div class="mid_pic2">
+
+                            <p>渐逝物集（老旧物件的专属照片书，最有情怀的父亲节礼物）</p>
+                            <strong>￥59.9</strong>
+                            <span>月销量0</span>
+
+                        </div>
+                    </div>
+                    <div class="mid_img3 lf">
+                        <img src="images/ber2.jpg" alt="">
+                        <div class="mid_time3">
+                            <span>39天</span>
+                            <span>02</span>
+                            <a>:</a>
+                            <span>36</span>
+                            <a>:</a>
+                            <span>40</span>
+                        </div>
+                        <div class="mid_pic3">
+
+                            <p>渐逝物集（老旧物件的专属照片书，最有情怀的父亲节礼物）</p>
+                            <strong>￥59.9</strong>
+                            <span>月销量0</span>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div id="mid2_img">
+                    <a href=""><img class="one" src="images/fhtky.png" alt=""></a>
+                    <a href=""><img src="images/zcjh.png" alt=""></a>
+                    <a href=""><img src="images/tksm.png" alt=""></a>
+                </div>
+            </div>
+            <div id="mid_right">
+                <p>最热活动</p>
+                <div id="m_con">
+                    <ul>
+                        <li><a href="">毫无疑问，爱马仕丝巾是这世上最让女人垂涎的一块正方形。</a><span>[文章]</span></li>
+                        <li><a href="">5.1出游另类目的地推荐，现在看还来的及......</a><span>[文章]</span></li>
+                        <li><a href="">终于明白！T恤衫怎么穿才有气质？-比印集市 </a><span>[文章]</span></li>
+                        <li><a href="">爱，还是要亲自去做的！（创业屌丝男的那一年）-比印集市</a><span>[文章]</span></li>
+                        <li><a href="">比惨吧！快印兄弟！想知道你的快印点有多惨吗？-比印集市</a><span>[文章]</span></li>
+                        <li><a href="">比惨吧！快印兄弟！想知道你的快印点有多惨吗？-比印集市</a><span>[文章]</span></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!--//以上显示推荐-->
+        <div id="marketing">
+            <div class="mar_title">
+                <span>宣传营销。</span>
+                <a>1+N</a>
+            </div>
+            <div id="card">
+                <a href=""><img src="images/ou7O6RGdZ69.gif" alt=""></a>
+                <a href=""><img src="images/hQlqEOoIC9b.gif" alt=""></a>
+                <a href=""><img src="images/h4WaChMKWk7.gif" alt=""></a>
+                <a href=""><img src="images/od7ejdhJXgZ.gif" alt=""></a>
+                <a href=""><img src="images/hW5nnkaezYq.gif" alt=""></a>
+                <a href=""><img src="images/hOHQ6LNWaXv.gif" alt=""></a>
+            </div>
+        </div>
+        <!--以上是宣传营销板块-->
+        <div id="bus_box">
+            <div class="bus_left lf">
+                <div class="bus1_titlr lf"><span>商务</span><a> 品质好</a></div>
+                <div class="bus1 ">
+                    <img src="images/gR1hSBhoGa4.jpg" alt="">
+                    <ul>
+                        <li class="bus1_con"><a href="">商务用纸、信纸、信封、邀请卡、名片、手拎袋设计定制企业商务套装</a></li>
+                        <li class="bus1_price">
+                            <a class="lf">￥998.00</a>
+                            <span class="rf">0人付款</span>
+                            <div class="clear"></div>
+                        </li>
+                        <li class="bus1_dz">
+                            <a href="">商务用纸、信纸、信封、邀请卡、名片、手拎袋设计定制企业商务套装 </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bus2 ">
+                    <div class="bus2_up">
+                        <a class="bup_img" href=""><img src="images/g3pp0Nva2ed.jpg" alt=""></a>
+                        <p>名流名片 模切工艺 高档名片制作</p>
+                        <div class="text2"><strong>￥100.00</strong><span>0人付款</span></div>
+                    </div>
+                    <div class="bus2_down">
+                        <a class="bup2_img" href=""><img src="images/hhZ0iH3fnpU.jpg" alt=""></a>
+                        <p href="">PVC工作证制作 一般工作证卡制作</p>
+                        <div class="text22"><strong>￥20.00</strong><span>0人付款</span></div>
+                    </div>
+                </div>
+                <div class="bus3 ">
+                    <a class="bus3_img" href="">
+                        <img src="images/gKJLwJfNlzd.jpg" alt="">
+                    </a>
+                    <p>300g卡纸请柬制作 加厚邀请函制作 请柬印刷logo</p>
+                    <div class="text3">
+                        <strong>￥100.00</strong>
+                        <span>0人付款</span>
+                    </div>
+                    <span class="text33">
+                        该款请柬选用300g加厚卡纸制作，纸张厚重沉稳，尽显高贵典雅，
+                        整体富有质感。设计、创新、创意共存，可定制您的专属请帖，传播气氛，
+                        为您的宴席锦上添花，彰显您的诚意与礼貌，彰显风范。
+                    </span>
+                </div>
+                <div class="bus4 ">
+                    <div class="bus4_img">
+                        <a class="bus4_img1" href=""><img src="images/o0Yy2O9gwI1.jpg" alt=""></a>
+                        <p>丝印工作证卡挂绳制作</p>
+                        <div class="text4">
+                            <strong>￥100.00</strong>
+                            <span>0人付款</span>
+                        </div>
+                    </div>
+
+                    <div class="bus4_text">
+                        <a class="bus4_img2" href="">
+                            <img src="images/oGfZ55dqisF.jpg" alt="">
+                        </a>
+                        <p>250g单铜手提袋制作 覆膜手提袋加工 定做手提袋</p>
+                        <div><strong>￥1000.00</strong><span>0人付款</span></div>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+            <div class="bus_right lf">
+                <div class="find">
+                    <span>发现~</span><a>图画说</a>
+                </div>
+                <div class="bri_img">
+                    <a class="bri_imgs" href=""><img src="images/omZZesGdbai.jpg" alt=""></a>
+                    <a href="">6寸韩绒照片冲印数码快印20张</a>
+                    <p><strong>￥23.5</strong><span>0人付款</span></p>
+                </div>
+                <div class="bri_img2">
+                    <a class="text2" href=""><img src="images/hAttUSr0GL9.jpg" alt=""></a>
+                    <a href="">Light丨轻质册</a>
+                    <p><strong>￥78.00</strong><span>0人付款</span></p>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!--以上是商务部分-->
+        <div class="new_box">
+            <p>最新上架</p>
+            <div class="new">
+                <div class="new1 lf">
+                    <ul>
+                        <li>
+                            <a href="">冰白</a>
+                            <span>￥60.00</span>
+                            <span class="clear"></span>
+                        </li>
+                        <li>
+                            <a href="">荷兰白卡</a>
+                            <span>￥60.00</span>
+                        </li>
+                        <li>
+                            <a href="">英国雪白卡</a>
+                            <span>￥60.00</span>
+                        </li>
+                        <li>
+                            <a href="">莱尼本白</a>
+                            <span>￥60.00</span>
+                        </li>
+                        <li>
+                            <a href="">丽芙普白</a>
+                            <span>￥60.00</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="new2 lf">
+                    <ul>
+                        <li><a href="">滑面刚古本白</a>
+                            <span>￥60.00</span>
+                        </li>
+                        <li><a href="">高阶本白</a>
+                            <span>￥60.00</span>
+                        </li>
+                        <li><a href="">彩石</a>
+                            <span>￥60.00</span>
+                        </li>
+                        <li><a href="">爱尔蒂自然白</a>
+                            <span>￥60.00</span>
+                        </li>
+                        <li><a href="">竖款册芯（毛边）</a>
+                            <span>￥60.00</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="new3 rf">
+                    <ul>
+                        <li><a href="">indigo毛边单张</a>
+                            <span>￥60.00</span>
+                        </li>
+                        <li><a href="">indigo毛边单张</a>
+                            <span>￥60.00</span>
+                        </li>
+                        <li><a href="">测试</a>
+                            <span>￥60.00</span>
+                        </li>
+                        <li><a href="">B2/高清六色出片</a>
+                            <span>￥60.00</span>
+                        </li>
+                        <li><a href="">单张产品包装纸箱|A3/B2</a>
+                            <span>￥60.00</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <!--以上时middle部分-->
+    <div id="bottom_box">
+        <div id="bot">
+            <div id="bot_left">
+                <div class="bot1">
+                    <i></i>
+                    <div class="bot1_con">
+                        <p>印刷导购</p>
+                        <span>为您发掘便宜、优良富有创意的产品</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="bot2">
+                    <i></i>
+                    <div class="bot2_con">
+                        <p>精心推荐</p>
+                        <span>每一件产品都由专家为您挑选</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="bot3">
+                    <i></i>
+                    <div class="bot3_con">
+                        <p>放心购买</p>
+                        <span>所有交易平台均提供风险管控协助</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div id="bot_right">
+            <span>
+                采购印刷品、选择印刷服务商，建议上比印集市平台货比三家，正所谓
+            </span>
+                <h5>“ 印比三家，不贵更好 ”</h5>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!--分割-->
+        <div id="boto_nav">
+            <div id="boto_left">
+                <div class="keep1">
+                    <p>关于</p>
+                    <ul>
+                        <li><a href="">协议声明</a></li>
+                        <li><a href="">关于比印</a></li>
+                        <li><a href="">联系我们</a></li>
+                        <li><a href="">印刷常识</a></li>
+                        <li><a href="">名片印刷</a></li>
+                    </ul>
+                </div>
+                <div class="keep2">
+                    <p>地图</p>
+                    <ul>
+                        <li><a href="">城市地图</a></li>
+                        <li><a href="">商家地图</a></li>
+                        <li><a href="">印品地图</a></li>
+                    </ul>
+                </div>
+                <div class="keep3">
+                    <p>友链</p>
+                    <ul>
+                        <li><a href="">名片印刷 | </a></li>
+                        <li><a href=""> 照片冲印 | </a></li>
+                        <li><a href=""> 展会网 | </a></li>
+                        <li><a href=""> 热转印膜 | </a></li>
+                        <li><a href=""> 标石 | </a></li>
+                        <li><a href=""> 深圳logo设计 | </a></li>
+                        <li><a href=""> 照片书 | </a></li>
+                        <li><a href=""> 设计印刷 | </a></li>
+                        <li><a href=""> 印特管理软件 | </a></li>
+                        <li><a href=""> 图文快印 | </a></li>
+                        <li><a href=""> 印刷耗材 | </a></li>
+                        <li><a href=""> 北京印刷 | </a></li>
+                        <li><a href=""> 照片书制作 | </a></li>
+                        <li><a href=""> logo设计 | </a></li>
+                        <li><a href=""> 淘宝店招设计 | </a></li>
+                        <li><a href=""> 印刷名片 | </a></li>
+                        <li><a href=""> 中国喷墨网 | </a></li>
+                        <li><a href=""> 免费发布信息 | </a></li>
+                        <li><a href=""> 英特软件社区 | </a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div id="boto_right">
+            <div class="apps lf">
+                <a href="">手机APP</a>
+                <img src="images/QR_APP.png" alt="">
+            </div>
+            <div class="chat lf">
+                <a href="">微信关注</a>
+                <img src="images/We_Chat.png" alt="">
+            </div>
+            <div class="sina rf">
+                <a href="">微博关注</a>
+                <img src="images/QR_Sina.png" alt="">
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+</body>
+</html>
